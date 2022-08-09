@@ -40,6 +40,7 @@ window.TrelloPowerUp.initialize({
               // do something
               
               //t.alert({message: 'Сохраняем тег...', duration: 10});
+              let items = ["first", "second"];
               
               t.popup({
                 title: 'Теги проблем',
