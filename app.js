@@ -40,9 +40,18 @@ window.TrelloPowerUp.initialize({
               // do something
               
               //t.alert({message: 'Сохраняем тег...', duration: 10});
-              let items = ["first", "second"];
+              let tags = ["first", "second", "three", "four"];
               
-              t.popup({
+              
+              const items = (_, options) => tags.filter(tag =>
+                tag.toLowerCase().includes(options.search.toLowerCase()) || tag == "four").map(tag => ({
+                  alwaysVisible: tag == "four",
+                  text: tag,
+                  callback: t.alert({message: 'Сохраняем тег...', duration: 10}),
+                })
+              );
+
+              return t.popup({
                 title: 'Теги проблем',
                 items,
                 search: {
@@ -51,6 +60,8 @@ window.TrelloPowerUp.initialize({
                   empty: 'Нема результатів'
                 }
               });
+
+          
 
               
             },
