@@ -37,6 +37,9 @@ window.TrelloPowerUp.initialize({
             callback: function (t, opts) {
               // function to run on click
               // do something
+              
+              t.alert({message: 'Сохраняем тег...', duration: 10});
+              
             },
           },
           {
@@ -52,3 +55,7 @@ window.TrelloPowerUp.initialize({
       });
   },
 });
+
+const saveTagForCard = async (tagName, cardId, t) => {
+  
+
