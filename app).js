@@ -1,31 +1,21 @@
-const GET_TAG_URL = 'https://us-central1-trello-tags.cloudfunctions.net/getTagByCard?cardId=';
-const DELETE_TAG_URL = 'https://us-central1-trello-tags.cloudfunctions.net/deleteTagCard';
-const SAVE_TAG_URL = 'https://us-central1-trello-tags.cloudfunctions.net/saveTagCard';
-const GET_TAGS_URL = 'https://us-central1-trello-tags.cloudfunctions.net/getTags';
+
 const DEFAULT_TAG = 'Обрати тег';
 
 let tags = [];
 let currentTag = '';
 let currentCardId = '';
 
-fetch(GET_TAGS_URL)
-  .then((response) => response.json())
-  .then(data => {
-    tags = data;
-    tags.unshift({ name: 'Видалити тег', id: 1 });
-
-    window.TrelloPowerUp.initialize({
+window.TrelloPowerUp.initialize({
       'card-detail-badges': (t) => t.card('id').get('id').then((id) => ([{
         dynamic: () => getTagForCard(id, t),
       }])),
     });
-  });
 
 const getTagForCard = (cardId, t) => new Promise(async resolve => {
   console.log('cardId', cardId);
 
   if (!currentTag || currentCardId !== cardId) {
-    let response = await fetch(GET_TAG_URL + cardId);
+    let response = {'first', 'second'};
 
     if (response.ok) {
       const { errorCode, tagId } = await response.json();
@@ -53,10 +43,9 @@ const saveTagForCard = async (tagName, cardId, t) => {
   const {id:tagId} = tags.find(t => t.name === tagName);
   if (tagId === 1) {
     currentTag = DEFAULT_TAG;
-    await fetch(DELETE_TAG_URL + `?cardId=${cardId}`);
+ 
   } else {
     currentTag = tagName;
-    await fetch(SAVE_TAG_URL + `?cardId=${cardId}&tagId=${tagId}`);
   }
 
   t.closePopup();
