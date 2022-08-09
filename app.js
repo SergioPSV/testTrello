@@ -33,7 +33,8 @@ window.TrelloPowerUp.initialize({
             // also support callback functions so that you can open for example
             // open a popup on click
             title: "Popup Detail Badge",
-            text: "Popup",
+            text: "Добавить тег",
+            color: "green",
             callback: function (t, opts) {
               // function to run on click
               // do something
