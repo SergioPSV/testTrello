@@ -26,7 +26,7 @@ window.TrelloPowerUp.initialize({
             // to refresh you can mix and match between static and dynamic
             title: "Detail Badge",
             text: "Static",
-            color: green,
+            color: null,
           },
           {
             // card detail badges (those that appear on the back of cards)
