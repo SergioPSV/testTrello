@@ -1,72 +1,54 @@
-
-const DEFAULT_TAG = 'Обрати тег';
-
-let tags = [];
-let currentTag = '';
-let currentCardId = '';
-
 window.TrelloPowerUp.initialize({
-      'card-detail-badges': (t) => t.card('id').get('id').then((id) => ([{
-        dynamic: () => getTagForCard(id, t),
-      }])),
-    });
+  "card-detail-badges": function (t, opts) {
+    return t
+      .card("name")
+      .get("name")
+      .then(function (cardName) {
+        console.log("We just loaded the card name for fun: " + cardName);
 
-const getTagForCard = (cardId, t) => new Promise(async resolve => {
-  console.log('cardId', cardId);
-
-  if (!currentTag || currentCardId !== cardId) {
-    let response = {'first', 'second'};
-
-    if (response.ok) {
-      const { errorCode, tagId } = await response.json();
-      currentTag = !errorCode ? tags.find(t => t.id === tagId).name : DEFAULT_TAG;
-    } else {
-      console.log("HTTP error: " + response.status);
-    }
-  }
-
-  currentCardId = cardId;
-
-  t.hideAlert()
-
-  resolve({
-    title: 'Тег проблемы',
-    text: currentTag,
-    refresh: 10,
-    callback: (tee) => badgeClickCallback(tee, cardId),
-  })
+        return [
+          {
+            // dynamic badges can have their function rerun after a set number
+            // of seconds defined by refresh. Minimum of 10 seconds.
+            dynamic: function () {
+              // we could also return a Promise that resolves to this
+              // as well if we needed to do something async first
+              return {
+                title: "Detail Badge",
+                text: "Dynamic " + (Math.random() * 100).toFixed(0).toString(),
+                color: randomBadgeColor(),
+                refresh: 10, // in seconds
+              };
+            },
+          },
+          {
+            // its best to use static badges unless you need your badges
+            // to refresh you can mix and match between static and dynamic
+            title: "Detail Badge",
+            text: "Static",
+            color: null,
+          },
+          {
+            // card detail badges (those that appear on the back of cards)
+            // also support callback functions so that you can open for example
+            // open a popup on click
+            title: "Popup Detail Badge",
+            text: "Popup",
+            callback: function (t, opts) {
+              // function to run on click
+              // do something
+            },
+          },
+          {
+            // or for simpler use cases you can also provide a url
+            // when the user clicks on the card detail badge they will
+            // go to a new tab at that url
+            title: "URL Detail Badge",
+            text: "URL",
+            url: "https://trello.com/home",
+            target: "Trello Landing Page", // optional target for above url
+          },
+        ];
+      });
+  },
 });
-
-const saveTagForCard = async (tagName, cardId, t) => {
-  t.alert({message: 'Сохраняем тег...', duration: 10});
-
-  const {id:tagId} = tags.find(t => t.name === tagName);
-  if (tagId === 1) {
-    currentTag = DEFAULT_TAG;
- 
-  } else {
-    currentTag = tagName;
-  }
-
-  t.closePopup();
-}
-
-const badgeClickCallback = (tee, cardId) => {
-  const items = (_, options) => tags.filter(tag =>
-    tag.name.toLowerCase().includes(options.search.toLowerCase()) || tag.id === 1).map(tag => ({
-      alwaysVisible: tag.id === 1,
-      text: tag.name,
-      callback: t => saveTagForCard(tag.name, cardId, t),
-    })
-  );
-
-  return tee.popup({
-    title: 'Теги проблем',
-    items,
-    search: {
-      count: 10,
-      placeholder: 'Пошук...',
-      empty: 'Нема результатів'
-    }
-  });
-};
