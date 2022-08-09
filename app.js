@@ -41,17 +41,20 @@ window.TrelloPowerUp.initialize({
               
               t.alert({message: 'Сохраняем тег...', duration: 10});
               
+              t.popup({
+                title: 'Теги проблем',
+                items,
+                search: {
+                  count: 10,
+                  placeholder: 'Пошук...',
+                  empty: 'Нема результатів'
+                }
+              });
+
+              
             },
           },
-          {
-            // or for simpler use cases you can also provide a url
-            // when the user clicks on the card detail badge they will
-            // go to a new tab at that url
-            title: "URL Detail Badge",
-            text: "URL",
-            url: "https://trello.com/home",
-            target: "Trello Landing Page", // optional target for above url
-          },
+          
         ];
       });
   },
