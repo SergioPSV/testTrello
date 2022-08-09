@@ -39,7 +39,7 @@ window.TrelloPowerUp.initialize({
               // function to run on click
               // do something
               
-              t.alert({message: 'Сохраняем тег...', duration: 10});
+              //t.alert({message: 'Сохраняем тег...', duration: 10});
               
               t.popup({
                 title: 'Теги проблем',
