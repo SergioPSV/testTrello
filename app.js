@@ -55,7 +55,5 @@ window.TrelloPowerUp.initialize({
       });
   },
 });
-
-const saveTagForCard = async (tagName, cardId, t) => {
   
 
