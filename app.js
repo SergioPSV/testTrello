@@ -64,20 +64,20 @@ window.TrelloPowerUp.initialize({
                 title: 'Теги проблем',
                 items: [{
                   text: '#135 attempt to fix trello/api-docs#134',
-                  callback: function (t, opts) {  },
+                  callback: t.alert({message: 'Сохраняем тег...', duration: 10}),
                   url: 'https://github.com/trello/api-docs/pull/135'
                 }, {
                   text: '#133 Removing duplicate `status` property',
-                  callback: function (t, opts) {  },
+                  callback: t.alert({message: 'Сохраняем тег...', duration: 2}),
                   url: 'https://github.com/trello/api-docs/pull/133'
                 }, {
                   text: '#131 Update New Action Default',
-                  callback: function (t, opts) {  }
+                  callback: t.alert({message: 'Сохраняем тег...', duration: 2}),
                   url: 'https://github.com/trello/api-docs/pull/131'
                 }, {
                   alwaysVisible: true, // non-search option, always shown
                   text: options.search,
-                  callback: function (t, opts) {  }
+                  callback: t.alert({message: 'Сохраняем тег...', duration: 2}),
                 }],
                 search: {
                   count: 10,
