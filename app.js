@@ -20,7 +20,7 @@ var btnCallback = function (t, opts) {
     }, {
       alwaysVisible: true, // non-search option, always shown
       text: 'Choose a different repo...',
-      callback: function (t, opts) { t.alert({message: 'Сохраняем тег...', duration: 10}); }
+      callback: function (t, opts) {  }
     }],
     search: {
       count: 10, // number of items to display at a time
@@ -33,9 +33,8 @@ var btnCallback = function (t, opts) {
 window.TrelloPowerUp.initialize({
   'card-buttons': function (t, opts) {
     return [{
-      icon: GRAY_ICON,
       text: 'GitHub',
-      callback: btnCallback
+      callback: t.alert({message: 'Сохраняем тег...', duration: 10});
     }];
   }
 });
