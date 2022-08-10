@@ -48,7 +48,7 @@ var onBtnClick = function (t, opts) {
     tag.toLowerCase().includes(options.search.toLowerCase()) || tag == 'first').map(tag => ({
       alwaysVisible: false,
       text: tag,
-      callback: t => t.alert({message: 'Сохраняем тег...', duration: 2}),
+      callback: console.log(items),
     })
   );
 
