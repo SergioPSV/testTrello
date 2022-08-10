@@ -1,100 +1,41 @@
 let tags = ["first", "second", "three", "four"];
 
+var GRAY_ICON = 'https://cdn.hyperdev.com/us-east-1%3A3d31b21c-01a0-4da2-8827-4bc6e88b7618%2Ficon-gray.svg';
+
+var btnCallback = function (t, opts) {
+  return t.popup({
+    title: 'Pull Requests',
+    items: [{
+      text: '#135 attempt to fix trello/api-docs#134',
+      callback: function (t, opts) { ... },
+      url: 'https://github.com/trello/api-docs/pull/135'
+    }, {
+      text: '#133 Removing duplicate `status` property',
+      callback: function (t, opts) { ... },
+      url: 'https://github.com/trello/api-docs/pull/133'
+    }, {
+      text: '#131 Update New Action Default',
+      callback: function (t, opts) { ... }
+      url: 'https://github.com/trello/api-docs/pull/131'
+    }, {
+      alwaysVisible: true, // non-search option, always shown
+      text: 'Choose a different repo...',
+      callback: function (t, opts) {  }
+    }],
+    search: {
+      count: 10, // number of items to display at a time
+      placeholder: 'Search pull requests',
+      empty: 'No pull requests found'
+    }
+  });
+};
+
 window.TrelloPowerUp.initialize({
-  "card-detail-badges": function (t, opts) {
-    return t
-      .card("name")
-      .get("name")
-      .then(function (cardName) {
-        console.log("We just loaded the card name for fun: " + cardName);
-
-        return [
-          {
-            // dynamic badges can have their function rerun after a set number
-            // of seconds defined by refresh. Minimum of 10 seconds.
-            dynamic: function () {
-              // we could also return a Promise that resolves to this
-              // as well if we needed to do something async first
-              return {
-                title: "Detail Badge",
-                text: "Dynamic " + (Math.random() * 100).toFixed(0).toString(),
-                color: "red",
-                refresh: 10, // in seconds
-              };
-            },
-          },
-          {
-            // its best to use static badges unless you need your badges
-            // to refresh you can mix and match between static and dynamic
-            title: "Detail Badge",
-            text: "Static1",
-            color: "blue",
-          },
-          {
-            // card detail badges (those that appear on the back of cards)
-            // also support callback functions so that you can open for example
-            // open a popup on click
-            title: "Popup Detail Badge",
-            text: "Создать тег",
-            color: "green",
-            callback: function (t, opts) {
-              // function to run on click
-              // do something
-              
-              //t.alert({message: 'Сохраняем тег...', duration: 10});
-              
-              
-              
-//               const items = (_, options) => tags.filter(tag =>
-//                 tag.toLowerCase().includes(options.search.toLowerCase()) || tag == options.search).map(tag => ({
-//                   alwaysVisible: options.search,
-//                   text: tag,
-//                   callback: t.alert({message: 'Сохраняем тег...', duration: 5}),
-//                 })
-//               );
-              
-//               const items = (_, options) => {
-//                   alwaysVisible: options.search,
-//                   text: options.search,
-//                   callback: t.alert({message: 'Сохраняем тег...', duration: 10}),
-//               };
-        
-
-              return t.popup({
-                title: 'Теги проблем',
-                items: [{
-                  text: '#135 attempt to fix trello/api-docs#134',
-                  callback: t.alert({message: 'Сохраняем тег...', duration: 10}),
-                  url: 'https://github.com/trello/api-docs/pull/135'
-                }, {
-                  text: '#133 Removing duplicate `status` property',
-                  callback: t.alert({message: 'Сохраняем тег...', duration: 2}),
-                  url: 'https://github.com/trello/api-docs/pull/133'
-                }, {
-                  text: '#131 Update New Action Default',
-                  callback: t.alert({message: 'Сохраняем тег...', duration: 2}),
-                  url: 'https://github.com/trello/api-docs/pull/131'
-                }, {
-                  alwaysVisible: true, // non-search option, always shown
-                  text: options.search,
-                  callback: t.alert({message: 'Сохраняем тег...', duration: 2}),
-                }],
-                search: {
-                  count: 10,
-                  placeholder: 'Пошук...',
-                  empty: 'Нема результатів'
-                }
-              });
-
-          
-
-              
-            },
-          },
-          
-        ];
-      });
-  },
+  'card-buttons': function (t, opts) {
+    return [{
+      icon: GRAY_ICON,
+      text: 'GitHub',
+      callback: btnCallback
+    }];
+  }
 });
-  
-
