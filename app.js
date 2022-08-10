@@ -1,3 +1,5 @@
+let tags = ["first", "second", "three", "four"];
+
 window.TrelloPowerUp.initialize({
   "card-detail-badges": function (t, opts) {
     return t
@@ -16,7 +18,7 @@ window.TrelloPowerUp.initialize({
               return {
                 title: "Detail Badge",
                 text: "Dynamic " + (Math.random() * 100).toFixed(0).toString(),
-                color: randomBadgeColor(),
+                color: "red",
                 refresh: 10, // in seconds
               };
             },
@@ -33,23 +35,23 @@ window.TrelloPowerUp.initialize({
             // also support callback functions so that you can open for example
             // open a popup on click
             title: "Popup Detail Badge",
-            text: "Добавить тег",
+            text: "Создать тег",
             color: "green",
             callback: function (t, opts) {
               // function to run on click
               // do something
               
               //t.alert({message: 'Сохраняем тег...', duration: 10});
-              let tags = ["first", "second", "three", "four"];
               
               
-//               const items = (_, options) => tags.filter(tag =>
-//                 tag.toLowerCase().includes(options.search.toLowerCase()) || options.search).map(tag => ({
-//                   alwaysVisible: options.search,
-//                   text: options.search,
-//                   callback: t.alert({message: 'Сохраняем тег...', duration: 10}),
-//                 })
-//               );
+              
+              const items = (_, options) => tags.filter(tag =>
+                tag.toLowerCase().includes(options.search.toLowerCase()) || options.search).map(tag => ({
+                  alwaysVisible: options.search,
+                  text: options.search,
+                  callback: t.alert({message: 'Сохраняем тег...', duration: 10}),
+                })
+              );
               
 //               const items = (_, options) => {
 //                   alwaysVisible: options.search,
@@ -60,7 +62,7 @@ window.TrelloPowerUp.initialize({
 
               return t.popup({
                 title: 'Теги проблем',
-                text: options.search,
+                items,
                 search: {
                   count: 10,
                   placeholder: 'Пошук...',
