@@ -45,13 +45,13 @@ window.TrelloPowerUp.initialize({
               
               
               
-              const items = (_, options) => tags.filter(tag =>
-                tag.toLowerCase().includes(options.search.toLowerCase()) || tag == options.search).map(tag => ({
-                  alwaysVisible: options.search,
-                  text: tag,
-                  callback: t.alert({message: 'Сохраняем тег...', duration: 5}),
-                })
-              );
+//               const items = (_, options) => tags.filter(tag =>
+//                 tag.toLowerCase().includes(options.search.toLowerCase()) || tag == options.search).map(tag => ({
+//                   alwaysVisible: options.search,
+//                   text: tag,
+//                   callback: t.alert({message: 'Сохраняем тег...', duration: 5}),
+//                 })
+//               );
               
 //               const items = (_, options) => {
 //                   alwaysVisible: options.search,
@@ -62,7 +62,23 @@ window.TrelloPowerUp.initialize({
 
               return t.popup({
                 title: 'Теги проблем',
-                items,
+                items: [{
+                  text: '#135 attempt to fix trello/api-docs#134',
+                  callback: function (t, opts) {  },
+                  url: 'https://github.com/trello/api-docs/pull/135'
+                }, {
+                  text: '#133 Removing duplicate `status` property',
+                  callback: function (t, opts) {  },
+                  url: 'https://github.com/trello/api-docs/pull/133'
+                }, {
+                  text: '#131 Update New Action Default',
+                  callback: function (t, opts) {  }
+                  url: 'https://github.com/trello/api-docs/pull/131'
+                }, {
+                  alwaysVisible: true, // non-search option, always shown
+                  text: options.search,
+                  callback: function (t, opts) {  }
+                }],
                 search: {
                   count: 10,
                   placeholder: 'Пошук...',
