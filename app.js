@@ -57,7 +57,6 @@ var onBtnClick = function (t, opts) {
     }, {
       alwaysVisible: true, // non-search option, always shown
       text: 'Choose a different repo...',
-      callback: function (t, opts) {  }
     }],
     search: {
       count: 10, // number of items to display at a time
