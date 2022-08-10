@@ -43,18 +43,19 @@ let tags = ["first", "second", "three", "four"];
 var GRAY_ICON = 'https://cdn.hyperdev.com/us-east-1%3A3d31b21c-01a0-4da2-8827-4bc6e88b7618%2Ficon-gray.svg';
 
 var onBtnClick = function (t, opts) {
+  
+  const items = (_, options) => tags.filter(tag =>
+    tag.name.toLowerCase().includes(options.search.toLowerCase()) || tag.id === 1).map(tag => ({
+      alwaysVisible: tag.id === 1,
+      text: tag.name,
+      callback: t.alert({message: 'Сохраняем тег...', duration: 2}),
+    })
+  );
+
+  
   return t.popup({
     title: 'Pull Requests',
-    items: [{
-      text: '#135 attempt to fix trello/api-docs#134',
-      url: 'https://github.com/trello/api-docs/pull/135'
-    }, {
-      text: '#133 Removing duplicate `status` property',
-      url: 'https://github.com/trello/api-docs/pull/133'
-    }, {
-      text: '#131 Update New Action Default',
-      url: 'https://github.com/trello/api-docs/pull/131'
-    }],
+    items,
     search: {
       count: 10, // number of items to display at a time
       placeholder: 'Search pull requests',
