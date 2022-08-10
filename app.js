@@ -51,16 +51,16 @@ window.TrelloPowerUp.initialize({
 //                 })
 //               );
               
-              const items = (_, options) => {
-                  alwaysVisible: options.search,
-                  text: options.search,
-                  callback: t.alert({message: 'Сохраняем тег...', duration: 10}),
-              };
+//               const items = (_, options) => {
+//                   alwaysVisible: options.search,
+//                   text: options.search,
+//                   callback: t.alert({message: 'Сохраняем тег...', duration: 10}),
+//               };
         
 
               return t.popup({
                 title: 'Теги проблем',
-                items,
+                text: options.search,
                 search: {
                   count: 10,
                   placeholder: 'Пошук...',
