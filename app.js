@@ -43,13 +43,20 @@ window.TrelloPowerUp.initialize({
               let tags = ["first", "second", "three", "four"];
               
               
-              const items = (_, options) => tags.filter(tag =>
-                tag.toLowerCase().includes(options.search.toLowerCase()) || options.search).map(tag => ({
+//               const items = (_, options) => tags.filter(tag =>
+//                 tag.toLowerCase().includes(options.search.toLowerCase()) || options.search).map(tag => ({
+//                   alwaysVisible: options.search,
+//                   text: options.search,
+//                   callback: t.alert({message: 'Сохраняем тег...', duration: 10}),
+//                 })
+//               );
+              
+              const items = (_, options) => {
                   alwaysVisible: options.search,
                   text: options.search,
                   callback: t.alert({message: 'Сохраняем тег...', duration: 10}),
-                })
-              );
+              };
+        
 
               return t.popup({
                 title: 'Теги проблем',
