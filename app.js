@@ -47,15 +47,12 @@ var onBtnClick = function (t, opts) {
     title: 'Pull Requests',
     items: [{
       text: '#135 attempt to fix trello/api-docs#134',
-      callback: function (t, opts) {  },
       url: 'https://github.com/trello/api-docs/pull/135'
     }, {
       text: '#133 Removing duplicate `status` property',
-      callback: function (t, opts) {  },
       url: 'https://github.com/trello/api-docs/pull/133'
     }, {
       text: '#131 Update New Action Default',
-      callback: function (t, opts) {  }
       url: 'https://github.com/trello/api-docs/pull/131'
     }, {
       alwaysVisible: true, // non-search option, always shown
