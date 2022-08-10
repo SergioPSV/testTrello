@@ -54,9 +54,6 @@ var onBtnClick = function (t, opts) {
     }, {
       text: '#131 Update New Action Default',
       url: 'https://github.com/trello/api-docs/pull/131'
-    }, {
-      alwaysVisible: true, // non-search option, always shown
-      text: 'Choose a different repo...',
     }],
     search: {
       count: 10, // number of items to display at a time
