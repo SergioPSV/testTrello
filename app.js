@@ -49,7 +49,11 @@ var onBtnClick = function (t, opts) {
       alwaysVisible: false,
       text: tag,
       callback: console.log(items),
-    })
+    }).push( {
+      alwaysVisible: false,
+      text: options.search,
+      callback: console.log(items),
+    } )
   );
 
   
