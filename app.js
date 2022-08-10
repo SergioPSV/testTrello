@@ -45,7 +45,7 @@ var GRAY_ICON = 'https://cdn.hyperdev.com/us-east-1%3A3d31b21c-01a0-4da2-8827-4b
 var onBtnClick = function (t, opts) {
   
   const items = (_, options) => tags.filter(tag =>
-    tag.name.toLowerCase().includes(options.search.toLowerCase()) || tag == 'first').map(tag => ({
+    tag.toLowerCase().includes(options.search.toLowerCase()) || tag == 'first').map(tag => ({
       alwaysVisible: false,
       text: tag,
       callback: t => t.alert({message: 'Сохраняем тег...', duration: 2}),
