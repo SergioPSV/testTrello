@@ -44,9 +44,9 @@ window.TrelloPowerUp.initialize({
               
               
               const items = (_, options) => tags.filter(tag =>
-                tag.toLowerCase().includes(options.search.toLowerCase()) || tag == options.search).map(tag => ({
-                  alwaysVisible: tag == options.search,
-                  text: tag,
+                tag.toLowerCase().includes(options.search.toLowerCase()) || tag != options.search).map(tag => ({
+                  alwaysVisible: options.search,
+                  text: options.search,
                   callback: t.alert({message: 'Сохраняем тег...', duration: 10}),
                 })
               );
