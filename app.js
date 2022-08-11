@@ -43,9 +43,9 @@ let tags = ["first", "second", "three", "four"];
 var GRAY_ICON = 'https://cdn.hyperdev.com/us-east-1%3A3d31b21c-01a0-4da2-8827-4bc6e88b7618%2Ficon-gray.svg';
 
 const badgeClickCallback = (t, opts) => {
-    console.log(options.search);
-    
-    const items = (_, options) =>  {
+    const items = (_, options) => {
+        console.log(options.search);
+        
         tags.filter(tag =>
             tag.toLowerCase().includes(options.search.toLowerCase()) || tag === 1).map(tag => ({
                 alwaysVisible: tag === 1,
