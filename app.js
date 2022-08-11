@@ -46,10 +46,11 @@ var onBtnClick = function (t, opts) {
   
   const items = (_, options) => {
     console.log(options.search);
+    tags.push(options.search);
     
     tags.filter(tag =>
-      tag.toLowerCase().includes(options.search.toLowerCase()) || tag == 'first').map(tag => ({
-        alwaysVisible: false,
+      tag.toLowerCase().includes(options.search.toLowerCase()) || tag == options.search).map(tag => ({
+        alwaysVisible: tag == options.search,
         text: tag,
         callback: console.log(items),
       })
