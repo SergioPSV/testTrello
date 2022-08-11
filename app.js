@@ -7,7 +7,7 @@ const badgeClickCallback = (t, opts) => {
     const items = (_, options) => {
         
     let searchTag = tags.filter(tag =>
-        tag.toLowerCase().includes(options.toLowerCase()) || tag == options).map(tag => ({
+        tag.toLowerCase().includes(options.search.toLowerCase()) || tag == options.search).map(tag => ({
             alwaysVisible: false,
             text: tag,
             callback: t => t.alert({message: 'Сохраняем тег...', duration: 10}),
@@ -17,13 +17,13 @@ const badgeClickCallback = (t, opts) => {
     if (!searchTag.length) {
         return [{
             alwaysVisible: true,
-            text: options,
+            text: options.search,
             callback: t => t.alert({message: 'Сохраняем тег...', duration: 10}),
         }]
     } else {
         return searchTag
     }
-    }
+  }
 
     return t.popup({
         title: 'Теги проблем',
