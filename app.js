@@ -46,7 +46,7 @@ var onBtnClick = function (t, opts) {
   
   const items = (_, options) => {
     console.log(options.search);
-    tags.push(options.search);
+    //tags.push(options.search);
     
     tags.filter(tag =>
       tag.toLowerCase().includes(options.search.toLowerCase()) || tag == options.search).map(tag => ({
@@ -59,7 +59,7 @@ var onBtnClick = function (t, opts) {
   
   
   return t.popup({
-    title: 'Pull Requests',
+    title: 'Теги',
     items,
     search: {
       count: 10, // number of items to display at a time
