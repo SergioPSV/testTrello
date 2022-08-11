@@ -23,6 +23,7 @@ const badgeClickCallback = (t, opts) => {
     } else {
         return searchTag
     }
+    }
 
     return t.popup({
         title: 'Теги проблем',
