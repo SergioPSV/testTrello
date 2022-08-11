@@ -44,31 +44,24 @@ var GRAY_ICON = 'https://cdn.hyperdev.com/us-east-1%3A3d31b21c-01a0-4da2-8827-4b
 
 var onBtnClick = function (t, opts) {
   
-//   const items = (_, options) => tags.filter(tag =>
-//     tag.toLowerCase().includes(options.search.toLowerCase()) || tag == 'first').map(tag => ({
-//       alwaysVisible: false,
-//       text: tag,
-//       callback: console.log(items),
-//     }).push( {
-//       alwaysVisible: false,
-//       text: options.search,
-//       callback: console.log(items),
-//     } )
-//   );
+  const items = (_, options) => tags.filter(tag =>
+    tag.toLowerCase().includes(options.search.toLowerCase()) || tag == 'first').map(tag => ({
+      alwaysVisible: false,
+      text: tag,
+      callback: console.log(items),
+    }).push( {
+      alwaysVisible: false,
+      text: options.search,
+      callback: console.log(items),
+    } )
+  );
+  
+  console.log(items);
 
   
   return t.popup({
     title: 'Pull Requests',
-    items: [{
-      alwaysVisible: false,
-      text: 'test',
-      callback: t.alert({message: 'Сохраняем тег...', duration: 10}),
-    },
-    {
-      alwaysVisible: false,
-      text: 'test2',
-      callback: t.alert({message: 'Сохраняем тег...', duration: 10}),
-    }],
+    items,
     search: {
       count: 10, // number of items to display at a time
       placeholder: 'Search pull requests',
