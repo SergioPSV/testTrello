@@ -52,7 +52,7 @@ var onBtnClick = function (t, opts) {
       tag.toLowerCase().includes(options.search.toLowerCase()) || tag == options.search).map(tag => ({
         alwaysVisible: tag == options.search,
         text: tag,
-        callback: console.log(items),
+        callback: t => t.alert({message: 'Сохраняем тег...', duration: 10}),
       })
     );
   }
@@ -64,7 +64,7 @@ var onBtnClick = function (t, opts) {
     search: {
       count: 10, // number of items to display at a time
       placeholder: 'Search pull requests',
-      empty: 'No pull requests found'
+      empty: 'Нужно добавить такой тег'
     }
   });
 };
