@@ -51,7 +51,7 @@ const badgeClickCallback = (t, opts) => {
         })
     );
 
-    return tee.popup({
+    return t.popup({
         title: 'Теги проблем',
         items,
         search: {
