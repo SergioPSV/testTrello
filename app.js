@@ -6,6 +6,7 @@ var GRAY_ICON = 'https://cdn.hyperdev.com/us-east-1%3A3d31b21c-01a0-4da2-8827-4b
 const badgeClickCallback = (t, opts) => {
     const items = (_, options) => {
         console.log(options.search);
+        tags.push(options.search);
         
         return tags.filter(tag =>
             tag.toLowerCase().includes(options.search.toLowerCase()) || tag === 1).map(tag => ({
