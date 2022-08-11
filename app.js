@@ -5,17 +5,24 @@ var GRAY_ICON = 'https://cdn.hyperdev.com/us-east-1%3A3d31b21c-01a0-4da2-8827-4b
 
 const badgeClickCallback = (t, opts) => {
     const items = (_, options) => {
-        console.log(options.search);
-        tags.push(options.search);
         
-        return tags.filter(tag =>
-            tag.toLowerCase().includes(options.search.toLowerCase()) || tag === 1).map(tag => ({
-                alwaysVisible: tag === 1,
-                text: tag,
-                callback: t => t.alert({message: 'Сохраняем тег...', duration: 10}),
-            })
-        );
-    };
+    let searchTag = tags.filter(tag =>
+        tag.toLowerCase().includes(options.toLowerCase()) || tag == options).map(tag => ({
+            alwaysVisible: false,
+            text: tag,
+            callback: t => t.alert({message: 'Сохраняем тег...', duration: 10}),
+        })
+    );
+
+    if (!searchTag.length) {
+        return [{
+            alwaysVisible: true,
+            text: options,
+            callback: t => t.alert({message: 'Сохраняем тег...', duration: 10}),
+        }]
+    } else {
+        return searchTag
+    }
 
     return t.popup({
         title: 'Теги проблем',
