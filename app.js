@@ -91,16 +91,22 @@ window.TrelloPowerUp.initialize({
                             text: options.search,
                             callback: t => t.popup({
                                                   type: 'confirm',
-                                                  title: "&#x1f916;",
-                                                  message: "Створити тег?",
-                                                  confirmText: "Да",
-                                                  onConfirm: t => t.alert({message: 'Сохраняем тег...', duration: 2}),
+                                                  title: "Створення тегу",
+                                                  message: "Зробити це?",
+                                                  confirmText: "Тааак!",
+                                                  onConfirm: confirmNewTag(t),
                                                   confirmStyle: 'primary',
                                                 }),
                         }]
                     } else {
                         return searchTag
                     }
+                  }
+                
+                const confirmNewTag = (t, opts) => {
+                        
+                        t.alert({message: 'Зберігаю його для тебе...', duration: 2})
+                   
                   }
 
                     return t.popup({
