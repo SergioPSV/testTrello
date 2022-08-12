@@ -94,7 +94,7 @@ window.TrelloPowerUp.initialize({
                                                   title: "Створення тегу",
                                                   message: "Зробити це?",
                                                   confirmText: "Тааак!",
-                                                  onConfirm: confirmNewTag(t),
+                                                  onConfirm: function(t, opts){ t.alert({message: 'Зберігаю його для тебе...', duration: 2}) },
                                                   confirmStyle: 'primary',
                                                 }),
                         }]
@@ -105,7 +105,7 @@ window.TrelloPowerUp.initialize({
                 
                 const confirmNewTag = (t, opts) => {
                         
-                        t.alert({message: 'Зберігаю його для тебе...', duration: 2})
+                        
                    
                   }
 
