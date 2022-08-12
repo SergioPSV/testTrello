@@ -44,7 +44,7 @@ window.TrelloPowerUp.initialize({
                         
                         t.alert({message: 'Зберігаю його для тебе ❤️', duration: 2})
                         
-                       console.log("https://us-central1-trello-tags.cloudfunctions.net/createTag" + "?name=" + tagName);
+                       console.log("https://us-central1-trello-tags.cloudfunctions.net/createTag" + "?name='" + tagName + "'");
                                                           
                         t.closePopup();
                    
