@@ -89,7 +89,16 @@ window.TrelloPowerUp.initialize({
                         return [{
                             alwaysVisible: true,
                             text: options.search,
-                            callback: t => t.alert({message: 'Сохраняем тег...', duration: 10}),
+                            callback: t => t.popup({
+                                                  type: 'confirm',
+                                                  title: "Добавить тег?",
+                                                  message: "Точно добавить?",
+                                                  confirmText: "Да",
+                                                  onConfirm: t => t.alert({message: 'Сохраняем тег...', duration: 2}),
+                                                  confirmStyle?: 'primary' | 'danger',
+                                                  cancelText?: "Нет",
+                                                  onCancel?: t => t.alert({message: 'ОТмена', duration: 2}),
+                                                }),
                         }]
                     } else {
                         return searchTag
