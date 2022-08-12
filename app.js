@@ -57,7 +57,7 @@ window.TrelloPowerUp.initialize({
                         search: {
                             count: 10,
                             placeholder: 'Пошук...',
-                            empty: 'Нема результатів'
+                            empty: 'Цей тег потрібно створити'
                         }
                     });
                 
