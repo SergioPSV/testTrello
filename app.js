@@ -91,13 +91,10 @@ window.TrelloPowerUp.initialize({
                             text: options.search,
                             callback: t => t.popup({
                                                   type: 'confirm',
-                                                  title: "Добавить тег?",
-                                                  message: "Точно добавить?",
+                                                  title: "Створити тег? &#x1f916;",
                                                   confirmText: "Да",
                                                   onConfirm: t => t.alert({message: 'Сохраняем тег...', duration: 2}),
                                                   confirmStyle: 'primary',
-                                                  cancelText: "Нет",
-                                                  onCancel: t => t.alert({message: 'ОТмена', duration: 2}),
                                                 }),
                         }]
                     } else {
