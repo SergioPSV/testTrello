@@ -97,6 +97,8 @@ window.TrelloPowerUp.initialize({
                                                   onConfirm: function(t, opts){ 
                                                           
                                                           t.alert({message: 'Зберігаю його для тебе ❤️', duration: 2}) 
+                                                          
+                                                          t.closePopup();
                                                   },
                                                   confirmStyle: 'primary',
                                                 }),
