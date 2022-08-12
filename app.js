@@ -9,6 +9,7 @@ window.TrelloPowerUp.initialize({
           {
             title: "Popup Detail Badge",
             text: "Створити тег",
+            color: "green",
             callback: function (t, opts) {
                 let tags = ["first", "second", "three", "four"];
                 
@@ -53,7 +54,6 @@ window.TrelloPowerUp.initialize({
                     return t.popup({
                         title: 'Теги проблем',
                         items,
-                        color: "green",
                         search: {
                             count: 10,
                             placeholder: 'Пошук...',
