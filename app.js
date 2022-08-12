@@ -91,8 +91,8 @@ window.TrelloPowerUp.initialize({
                             text: options.search,
                             callback: t => t.popup({
                                                   type: 'confirm',
-                                                  title: "Створити тег? &#x1f916;",
-                                                  text: "Створити тег?",
+                                                  title: "&#x1f916;",
+                                                  message: "Створити тег?",
                                                   confirmText: "Да",
                                                   onConfirm: t => t.alert({message: 'Сохраняем тег...', duration: 2}),
                                                   confirmStyle: 'primary',
