@@ -94,7 +94,10 @@ window.TrelloPowerUp.initialize({
                                                   title: "Створити тег?",
                                                   message: options.search,
                                                   confirmText: "Тааак!",
-                                                  onConfirm: function(t, opts){ t.alert({message: 'Зберігаю його для тебе...' + options.search, duration: 2}) },
+                                                  onConfirm: function(t, opts){ 
+                                                          
+                                                          t.alert({message: 'Зберігаю його для тебе ❤️', duration: 2}) 
+                                                  },
                                                   confirmStyle: 'primary',
                                                 }),
                         }]
