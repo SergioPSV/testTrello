@@ -1,55 +1,3 @@
-
-
-
-// var GRAY_ICON = 'https://cdn.hyperdev.com/us-east-1%3A3d31b21c-01a0-4da2-8827-4bc6e88b7618%2Ficon-gray.svg';
-
-// const badgeClickCallback = (t, opts) => {
-//     const items = (_, options) => {
-        
-//     let searchTag = tags.filter(tag =>
-//         tag.toLowerCase().includes(options.search.toLowerCase()) || tag == options.search).map(tag => ({
-//             alwaysVisible: false,
-//             text: tag,
-//             callback: t => t.alert({message: 'Сохраняем тег...', duration: 10}),
-//         })
-//     );
-
-//     if (!searchTag.length) {
-//         return [{
-//             alwaysVisible: true,
-//             text: options.search,
-//             callback: t => t.alert({message: 'Сохраняем тег...', duration: 10}),
-//         }]
-//     } else {
-//         return searchTag
-//     }
-//   }
-
-//     return t.popup({
-//         title: 'Теги проблем',
-//         items,
-//         search: {
-//             count: 10,
-//             placeholder: 'Пошук...',
-//             empty: 'Нема результатів'
-//         }
-//     });
-// };
-
-
-// window.TrelloPowerUp.initialize({
-//   'card-buttons': function (t, opts) {
-//     return [{
-//       icon: GRAY_ICON, // don't use a colored icon here
-//       text: 'Создать тег',
-//       callback: badgeClickCallback,
-//       condition: 'edit'
-//     }];
-//   }
-// });
-
-
-
 window.TrelloPowerUp.initialize({
   "card-detail-badges": function (t, opts) {
     return t
@@ -94,12 +42,7 @@ window.TrelloPowerUp.initialize({
                                                   title: "Створити тег?",
                                                   message: options.search,
                                                   confirmText: "Тааак!",
-                                                  onConfirm: function(t, opts){ 
-                                                          
-                                                          t.alert({message: 'Зберігаю його для тебе ❤️', duration: 2}) 
-                                                          
-                                                          t.closePopup();
-                                                  },
+                                                  onConfirm: t => confirmNewTag(t),
                                                   confirmStyle: 'primary',
                                                 }),
                         }]
@@ -108,9 +51,13 @@ window.TrelloPowerUp.initialize({
                     }
                   }
                 
-                const confirmNewTag = (t, opts) => {
+                const confirmNewTag = async (t, opts) => {
                         
+                        t.alert({message: 'Зберігаю його для тебе ❤️', duration: 2})
                         
+                       
+                                                          
+                        t.closePopup();
                    
                   }
 
