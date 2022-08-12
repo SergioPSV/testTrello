@@ -4,22 +4,11 @@ window.TrelloPowerUp.initialize({
       .card("name")
       .get("name")
       .then(function (cardName) {
-        console.log("We just loaded the card name for fun: " + cardName);
 
-        return [
-          {           
-            dynamic: function () {
-              return {
-                title: "Detail Badge",
-                text: "Dynamic " + (Math.random() * 100).toFixed(0).toString(),
-                color: "red",
-                refresh: 10, // in seconds
-              };
-            },
-          },
+        return [        
           {
             title: "Popup Detail Badge",
-            text: "Создать тег",
+            text: "Створити тег",
             callback: function (t, opts) {
                 let tags = ["first", "second", "three", "four"];
                 
@@ -55,7 +44,7 @@ window.TrelloPowerUp.initialize({
                         
                         t.alert({message: 'Зберігаю його для тебе ❤️', duration: 2})
                         
-                       console.log(tagName);
+                       console.log("https://us-central1-trello-tags.cloudfunctions.net/createTag" + "?name=" + tagName);
                                                           
                         t.closePopup();
                    
