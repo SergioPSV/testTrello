@@ -95,9 +95,9 @@ window.TrelloPowerUp.initialize({
                                                   message: "Точно добавить?",
                                                   confirmText: "Да",
                                                   onConfirm: t => t.alert({message: 'Сохраняем тег...', duration: 2}),
-                                                  confirmStyle?: 'primary' | 'danger',
-                                                  cancelText?: "Нет",
-                                                  onCancel?: t => t.alert({message: 'ОТмена', duration: 2}),
+                                                  confirmStyle: 'primary',
+                                                  cancelText: "Нет",
+                                                  onCancel: t => t.alert({message: 'ОТмена', duration: 2}),
                                                 }),
                         }]
                     } else {
