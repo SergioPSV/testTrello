@@ -53,6 +53,7 @@ window.TrelloPowerUp.initialize({
                     return t.popup({
                         title: 'Теги проблем',
                         items,
+                        color: "green",
                         search: {
                             count: 10,
                             placeholder: 'Пошук...',
