@@ -42,7 +42,7 @@ window.TrelloPowerUp.initialize({
                                                   title: "Створити тег?",
                                                   message: options.search,
                                                   confirmText: "Тааак!",
-                                                  onConfirm: t => confirmNewTag(t),
+                                                  onConfirm: t => confirmNewTag(t, options.search),
                                                   confirmStyle: 'primary',
                                                 }),
                         }]
@@ -51,11 +51,11 @@ window.TrelloPowerUp.initialize({
                     }
                   }
                 
-                const confirmNewTag = async (t, opts) => {
+                const confirmNewTag = async (t, tagName) => {
                         
                         t.alert({message: 'Зберігаю його для тебе ❤️', duration: 2})
                         
-                       
+                       console.log(tagName);
                                                           
                         t.closePopup();
                    
