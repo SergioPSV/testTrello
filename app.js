@@ -1,3 +1,8 @@
+const CREATE_TAG = 'https://us-central1-trello-tags.cloudfunctions.net/createTag';
+
+let newTag = '';
+
+
 window.TrelloPowerUp.initialize({
   "card-detail-badges": function (t, opts) {
     return t
@@ -42,13 +47,12 @@ window.TrelloPowerUp.initialize({
                   }
                 
                 const confirmNewTag = async (t, tagName) => {
-                        
                         t.alert({message: 'Зберігаю його для тебе ❤️', duration: 2})
-                        
-                       console.log("https://us-central1-trello-tags.cloudfunctions.net/createTag" + "?name='" + tagName + "'");
+                  
+                        newTag = tagName;
+                        await fetch(CREATE_TAG + `?name=${newTag}`);
                                                           
                         t.closePopup();
-                   
                   }
 
                     return t.popup({
