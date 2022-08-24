@@ -181,7 +181,7 @@ const badgeHiddenTagsCallback = (tee) => {
 
   console.log(hiddenTags[1].name);
 
-  const items = (_, options) => hiddenTags.filter(hiddenTag =>
+  const hiddenItems = (_, options) => hiddenTags.filter(hiddenTag =>
       hiddenTag.name.toLowerCase().includes(options.search.toLowerCase()) || hiddenTag.id === 1).map(hiddenTag => ({
         alwaysVisible: false,
         text: hiddenTag.name,
@@ -199,7 +199,7 @@ const badgeHiddenTagsCallback = (tee) => {
 
   return tee.popup({
     title: 'Сховані теги',
-    items,
+    hiddenItems,
     search: {
       count: 10,
       placeholder: 'Пошук...',
