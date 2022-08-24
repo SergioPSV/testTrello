@@ -179,18 +179,16 @@ const badgeClickCallback = (tee, cardId) => {
 
 const badgeHiddenTagsCallback = (tee) => {
 
-  console.log(hiddenTags);
+  console.log(hiddenTags[1].name);
 
   const items = (_, options) => {
-    let searchTag = hiddenTags.filter(tag =>
-      tag.name.toLowerCase().includes(options.search.toLowerCase()) || tag.id === 1).map(tag => ({
+    return hiddenTags.filter(hiddenTag =>
+      hiddenTag.name.toLowerCase().includes(options.search.toLowerCase()) || hiddenTag.id === 1).map(hiddenTag => ({
         alwaysVisible: false,
-        text: tag.name,
-        callback: t => confirmHideTag(tag.id, t),
+        text: hiddenTag.name,
+        callback: t => confirmHideTag(hiddenTag.id, t),
       })
     );
-    
-    return searchTag;
   };
 
   const confirmHideTag = async (tagId, t) => {
