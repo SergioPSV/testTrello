@@ -14,8 +14,8 @@ let newTag = '';
 
 fetch(GET_TAGS_URL)
   .then((response) => response.json())
-  .then(data => {
-    hiddenTags = getHiddenTags();
+  .then( async (data) => {
+    hiddenTags = await fetch(GET_HIDDEN_TAGS_URL);
     console.log(hiddenTags);
 
     tags = data;
@@ -217,10 +217,4 @@ const badgeHiddenTagsCallback = (tee, cardId) => {
       empty: 'Цей тег потрібно створити'
     }
   });
-};
-
-const getHiddenTags = async () => {
-  let hiddenTags = await fetch(GET_HIDDEN_TAGS_URL)
-  
-  return hiddenTags;
 };
