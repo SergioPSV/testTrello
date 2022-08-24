@@ -175,35 +175,24 @@ const badgeClickCallback = (tee, cardId) => {
 };
 
 const badgeHiddenTagsCallback = (tee) => {
-
-  console.log(hiddenTags[1].name);
-
-  const hiddenItems = (_, options) => hiddenTags.filter(hiddenTag =>
-      hiddenTag.name.toLowerCase().includes(options.search.toLowerCase()) || hiddenTag.id === 1).map(hiddenTag => ({
+    const items = (_, options) => hiddenTags.filter(tag =>
+      tag.name.toLowerCase().includes(options.search.toLowerCase())).map(tag => ({
         alwaysVisible: false,
-        text: hiddenTag.name,
-        callback: t => confirmHideTag(hiddenTag.id, t),
+        text: tag.name,
+        callback: t => t.alert({message: 'Тег знову в строю️', duration: 2}),
       })
     );
 
-  const confirmHideTag = async (tagId, t) => {
-    t.alert({message: 'Тег знову в строю️', duration: 2});
-
-    await fetch(UNHIDE_TAG + `?tagId=${tagId}`);
-
-    t.closePopup();
+    return tee.popup({
+      title: 'Теги проблем',
+      items,
+      search: {
+        count: 10,
+        placeholder: 'Пошук...',
+        empty: 'Нема результатів'
+      }
+    });
   };
-
-  return tee.popup({
-    title: 'Сховані теги',
-    hiddenItems,
-    search: {
-      count: 10,
-      placeholder: 'Пошук...',
-      empty: 'Такого не знайшов'
-    }
-  });
-};
 
 
 const badgeHideCallback = (tee) => {
