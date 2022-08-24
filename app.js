@@ -179,7 +179,7 @@ const badgeHiddenTagsCallback = (tee) => {
           text: tag.name,
           callback: t => t.alert({message: 'Тег знову в строю️', duration: 2}),
         })
-      );;
+      );
 
 
   // const items = (_, options) => hiddenTags.filter(tag =>
