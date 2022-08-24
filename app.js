@@ -174,7 +174,7 @@ const badgeClickCallback = (tee, cardId) => {
 
 const badgeHiddenTagsCallback = (tee) => {
 
-  const items = (_, options) => hiddenTags.filter(tag => console.log(tag.name.toLowerCase() == options.search.toLowerCase()));
+  const items = (_, options) => hiddenTags.filter(tag => console.log(tag.name == options.search));
 
 
   // const items = (_, options) => hiddenTags.filter(tag =>
