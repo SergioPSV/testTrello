@@ -4,6 +4,8 @@ const SAVE_TAG_URL = 'https://us-central1-trello-tags.cloudfunctions.net/saveTag
 const GET_TAGS_URL = 'https://us-central1-trello-tags.cloudfunctions.net/getTags';
 const CREATE_TAG = 'https://us-central1-trello-tags.cloudfunctions.net/createTag';
 const GET_HIDDEN_TAGS_URL = 'https://us-central1-trello-tags.cloudfunctions.net/getHiddenTags';
+const HIDE_TAG = 'https://us-central1-trello-tags.cloudfunctions.net/hideTag';
+const UNHIDE_TAG = 'https://us-central1-trello-tags.cloudfunctions.net/unhideTag';
 const DEFAULT_TAG = 'Обрати тег';
 
 let tags = [];
@@ -15,6 +17,7 @@ let newTag = '';
 fetch(GET_TAGS_URL)
   .then((response) => response.json())
   .then( async (data) => {
+
     hiddenTags = await fetch(GET_HIDDEN_TAGS_URL)
       .then((response) => response.json())
       .then( (hiddenData) => {
@@ -23,7 +26,7 @@ fetch(GET_TAGS_URL)
 
 
     console.log(hiddenTags);
-    
+
     tags = data;
     tags.unshift({ name: 'Видалити тег', id: 1 });
 
@@ -77,10 +80,8 @@ fetch(GET_TAGS_URL)
           {
             title: "Потаємне 🤫",
             text: "Показати",
-            callback: function (t, opts) {
-              // function to run on click
-              // do something
-            },
+            color: "blue",
+            callback: (tee) => badgeHiddenTagsCallback(tee),
           },
         ])),
     });
@@ -176,50 +177,32 @@ const badgeClickCallback = (tee, cardId) => {
   });
 };
 
-const badgeHiddenTagsCallback = (tee, cardId) => {
+const badgeHiddenTagsCallback = (tee) => {
   const items = (_, options) => {
-    let searchTags = tags.filter(tag =>
+    return hiddenTags.filter(tag =>
       tag.name.toLowerCase().includes(options.search.toLowerCase()) || tag.id === 1).map(tag => ({
-        alwaysVisible: tag.id === 1,
+        alwaysVisible: false,
         text: tag.name,
-        callback: t => saveTagForCard(tag.name, cardId, t),
+        callback: t => confirmHideTag(tag.id, t),
       })
     );
-
-    if (searchTags.length == 1) {
-      return [{
-        alwaysVisible: true,
-        text: options.search,
-        callback: t => t.popup({
-          type: 'confirm',
-          title: "Створити тег?",
-          message: options.search,
-          confirmText: "Так!",
-          onConfirm: t => confirmNewTag(t, options.search),
-          confirmStyle: 'primary',
-        }),
-      }]
-    } else {
-      return searchTags;
-    }
   };
 
-  const confirmNewTag = async (t, tagName) => {
-    t.alert({message: 'Зберігаю його для тебе ❤️', duration: 2});
+  const confirmHideTag = async (tagId, t) => {
+    t.alert({message: 'Тег знову в строю️', duration: 2});
 
-    newTag = tagName;
-    await fetch(CREATE_TAG + `?name=${newTag}`);
+    await fetch(UNHIDE_TAG + `?tagId=${tagId}`);
 
     t.closePopup();
   };
 
   return tee.popup({
-    title: 'Теги проблем',
+    title: 'Сховані теги',
     items,
     search: {
       count: 10,
       placeholder: 'Пошук...',
-      empty: 'Цей тег потрібно створити'
+      empty: 'Такого не знайшов'
     }
   });
 };
