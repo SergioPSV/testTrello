@@ -177,8 +177,15 @@ const badgeHiddenTagsCallback = (tee) => {
   console.log(typeof hiddenTags);
   console.log(hiddenTags[1].name.toLowerCase());
   console.log(typeof tags);
+  
+  let arr = ['first', 'second', 'throu'];
 
-  const items = (_, options) => console.log(options.search);
+  const items = (_, options) => arr.filter( el => el.includes(options.search)).map(el => ({
+          alwaysVisible: false,
+          text: el,
+          callback: t => t.alert({message: 'Тег знову в строю️', duration: 2}),
+        })
+        );
 
 
   // const items = (_, options) => hiddenTags.filter(tag =>
