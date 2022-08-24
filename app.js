@@ -44,17 +44,34 @@ fetch(GET_TAGS_URL)
       },
       'card-detail-badges': (t) => t.card('id')
         .get('id')
-        .then((id) => ([{
-        dynamic: () => getTagForCard(id, t),
-      },
+        .then((id) => ([
           {
-            title: "Popup Detail Badge",
-            text: "Popup",
+            dynamic: () => getTagForCard(id, t),
+          },
+          {
+            title: "Світ змінюється і теги потрібно",
+            text: "Редагувати",
             callback: function (t, opts) {
               // function to run on click
               // do something
             },
-          },    
+          },
+          {
+            title: "Потрібно щось сховати? 🥷",
+            text: "Сховати",
+            callback: function (t, opts) {
+              // function to run on click
+              // do something
+            },
+          },
+          {
+            title: "Потаємне 🤫",
+            text: "Показати",
+            callback: function (t, opts) {
+              // function to run on click
+              // do something
+            },
+          },
         ])),
     });
   });
