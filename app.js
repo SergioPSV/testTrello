@@ -181,15 +181,13 @@ const badgeHiddenTagsCallback = (tee) => {
 
   console.log(hiddenTags[1].name);
 
-  const items = (_, options) => {
-    return hiddenTags.filter(hiddenTag =>
+  const items = (_, options) => hiddenTags.filter(hiddenTag =>
       hiddenTag.name.toLowerCase().includes(options.search.toLowerCase()) || hiddenTag.id === 1).map(hiddenTag => ({
         alwaysVisible: false,
         text: hiddenTag.name,
         callback: t => confirmHideTag(hiddenTag.id, t),
       })
     );
-  };
 
   const confirmHideTag = async (tagId, t) => {
     t.alert({message: 'Тег знову в строю️', duration: 2});
