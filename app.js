@@ -1,30 +1,29 @@
 window.TrelloPowerUp.initialize({
-  "card-badges": function (t, opts) {
-    let cardAttachments = opts.attachments; // Trello passes you the attachments on the card
-    return t
-      .card("name")
-      .get("name")
-      .then(function (cardName) {
-        return [
-          {
-            
-            dynamic: function () {
-              
-              return {
-                text: "Dynamic " + (Math.random() * 100).toFixed(0).toString(),
-                color: "green",
-                refresh: 60, // in seconds
-              };
+    "card-badges": function (t, opts) {
+      let cardAttachments = opts.attachments; // Trello passes you the attachments on the card
+      return t
+        .card("name")
+        .get("name")
+        .then(function (cardName) {
+          return [
+            {
+
+              dynamic: function () {
+
+                return {
+                  text: "Dynamic " + (Math.random() * 100).toFixed(0).toString(),
+                  color: "green",
+                  refresh: 60, // in seconds
+                };
+              },
             },
-          },
-          {
-            text: "Static",
-            color: null,
-          },
-        ];
-      });
-  },
-},                         
+            {
+              text: "Static",
+              color: null,
+            },
+          ];
+        });
+    },
   "card-detail-badges": function (t, opts) {
     return t
       .card("name")
@@ -34,11 +33,7 @@ window.TrelloPowerUp.initialize({
 
         return [
           {
-            // dynamic badges can have their function rerun after a set number
-            // of seconds defined by refresh. Minimum of 10 seconds.
             dynamic: function () {
-              // we could also return a Promise that resolves to this
-              // as well if we needed to do something async first
               return {
                 title: "Detail Badge",
                 text: "Dynamic " + (Math.random() * 100).toFixed(0).toString(),
@@ -48,34 +43,22 @@ window.TrelloPowerUp.initialize({
             },
           },
           {
-            // its best to use static badges unless you need your badges
-            // to refresh you can mix and match between static and dynamic
             title: "Detail Badge",
             text: "Static",
             color: null,
           },
           {
-            // card detail badges (those that appear on the back of cards)
-            // also support callback functions so that you can open for example
-            // open a popup on click
             title: "Popup Detail Badge",
             text: "Popup",
-            callback: function (t, opts) {
-              // function to run on click
-              // do something
-            },
+            callback: function (t, opts) {},
           },
           {
-            // or for simpler use cases you can also provide a url
-            // when the user clicks on the card detail badge they will
-            // go to a new tab at that url
             title: "URL Detail Badge",
             text: "URL",
             url: "https://trello.com/home",
-            target: "Trello Landing Page", // optional target for above url
+            target: "Trello Landing Page", 
           },
         ];
       });
-  },
-});
-
+  }
+  });
