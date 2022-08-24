@@ -174,7 +174,7 @@ const badgeClickCallback = (tee, cardId) => {
 
 const badgeHiddenTagsCallback = (tee) => {
 
-  const items = (_, options) => hiddenTags.filter(tag => tag.name == options.search).map(tag => ({
+  const items = (_, options) => hiddenTags.filter(tag => tag.name.includes(options.search)).map(tag => ({
           alwaysVisible: false,
           text: tag.name,
           callback: t => t.alert({message: 'Тег знову в строю️', duration: 2}),
