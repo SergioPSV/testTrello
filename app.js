@@ -18,16 +18,11 @@ fetch(GET_TAGS_URL)
   .then((response) => response.json())
   .then( async (data) => {
 
-    let allHiddenTags = await fetch(GET_HIDDEN_TAGS_URL)
+    hiddenTags = await fetch(GET_HIDDEN_TAGS_URL)
       .then((response) => response.json())
       .then( (hiddenData) => {
         return hiddenData;
       });
-
-    hiddenTags = allHiddenTags;
-    hiddenTags.unshift({ name: 'Видалити тег', id: 1 });
-
-
     console.log(hiddenTags);
 
     tags = data;
@@ -178,13 +173,17 @@ const badgeClickCallback = (tee, cardId) => {
 };
 
 const badgeHiddenTagsCallback = (tee) => {
-    const items = (_, options) => hiddenTags.filter(tag =>
-      tag.name.toLowerCase().includes(options.search.toLowerCase())).map(tag => ({
-        alwaysVisible: false,
-        text: tag.name,
-        callback: t => t.alert({message: 'Тег знову в строю️', duration: 2}),
-      })
-    );
+
+  const items = (_, options) => hiddenTags.filter(tag => console.log(tag.name));
+  
+  
+  // const items = (_, options) => hiddenTags.filter(tag =>
+  //     tag.name.toLowerCase().includes(options.search.toLowerCase())).map(tag => ({
+  //       alwaysVisible: false,
+  //       text: tag.name,
+  //       callback: t => t.alert({message: 'Тег знову в строю️', duration: 2}),
+  //     })
+  //   );
 
     return tee.popup({
       title: 'Теги проблем',
