@@ -178,23 +178,42 @@ const badgeClickCallback = (tee, cardId) => {
 };
 
 const badgeHiddenTagsCallback = (tee) => {
-  const items = (_, options) => {
-    return hiddenTags.filter(tag =>
-      tag.name.toLowerCase().includes(options.search.toLowerCase()) || tag.id === 1).map(tag => ({
-        alwaysVisible: false,
-        text: tag.name,
-        callback: t => confirmHideTag(tag.id, t),
-      })
-    );
-  };
-
-  const confirmHideTag = async (tagId, t) => {
-    t.alert({message: 'Тег знову в строю️', duration: 2});
-
-    await fetch(UNHIDE_TAG + `?tagId=${tagId}`);
-
-    t.closePopup();
-  };
+  
+  console.log(hiddenTags);
+  
+  const items = [{
+    alwaysVisible: false,
+    text: 'tag1',
+    callback: t => confirmHideTag(t),
+  },
+    {
+      alwaysVisible: false,
+      text: 'tag2',
+      callback: t => confirmHideTag(t),
+    },
+    {
+      alwaysVisible: false,
+      text: 'tag3',
+      callback: t => confirmHideTag(t),
+    }];
+  //
+  // const items = (_, options) => {
+  //   return hiddenTags.filter(tag =>
+  //     tag.name.toLowerCase().includes(options.search.toLowerCase()) || tag.id === 1).map(tag => ({
+  //       alwaysVisible: false,
+  //       text: tag.name,
+  //       callback: t => confirmHideTag(tag.id, t),
+  //     })
+  //   );
+  // };
+  //
+  // const confirmHideTag = async (tagId, t) => {
+  //   t.alert({message: 'Тег знову в строю️', duration: 2});
+  //
+  //   await fetch(UNHIDE_TAG + `?tagId=${tagId}`);
+  //
+  //   t.closePopup();
+  // };
 
   return tee.popup({
     title: 'Сховані теги',
