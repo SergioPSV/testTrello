@@ -72,10 +72,7 @@ fetch(GET_TAGS_URL)
           {
             title: "Щось сховати? 🥷",
             text: "Всі теги",
-            callback: function (t, opts) {
-              // function to run on click
-              // do something
-            },
+            callback: (tee) => badgeHideCallback(tee),
           },
           {
             title: "Потаємне 🤫",
@@ -204,6 +201,27 @@ const badgeHiddenTagsCallback = (tee) => {
       count: 10,
       placeholder: 'Пошук...',
       empty: 'Такого не знайшов'
+    }
+  });
+};
+
+
+const badgeHideCallback = (tee) => {
+  const items = (_, options) => tags.filter(tag =>
+    tag.name.toLowerCase().includes(options.search.toLowerCase()) || tag.id === 1).map(tag => ({
+      alwaysVisible: false,
+      text: tag.name,
+      callback: t => t.alert({message: 'Тег знову в строю️', duration: 2}),
+    })
+  );
+
+  return tee.popup({
+    title: 'Теги проблем',
+    items,
+    search: {
+      count: 10,
+      placeholder: 'Пошук...',
+      empty: 'Нема результатів'
     }
   });
 };
