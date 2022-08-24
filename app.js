@@ -15,9 +15,15 @@ let newTag = '';
 fetch(GET_TAGS_URL)
   .then((response) => response.json())
   .then( async (data) => {
-    hiddenTags = await fetch(GET_HIDDEN_TAGS_URL);
-    console.log(hiddenTags);
+    hiddenTags = await fetch(GET_HIDDEN_TAGS_URL)
+      .then((response) => response.json())
+      .then( (hiddenData) => {
+        return hiddenData;
+      });
 
+
+    console.log(hiddenTags);
+    
     tags = data;
     tags.unshift({ name: 'Видалити тег', id: 1 });
 
@@ -30,7 +36,6 @@ fetch(GET_TAGS_URL)
           .then(function (cardName) {
             return [
               {
-
                 dynamic: function () {
 
                   return {
@@ -100,7 +105,7 @@ const getTagForCard = (cardId, t) => new Promise(async resolve => {
   t.hideAlert()
 
   resolve({
-    title: 'Тег проблемы',
+    title: 'Тег проблеми',
     text: currentTag,
     color: "yellow",
     refresh: 10,
