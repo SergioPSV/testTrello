@@ -18,11 +18,14 @@ fetch(GET_TAGS_URL)
   .then((response) => response.json())
   .then( async (data) => {
 
-    hiddenTags = await fetch(GET_HIDDEN_TAGS_URL)
+    let allHiddenTags = await fetch(GET_HIDDEN_TAGS_URL)
       .then((response) => response.json())
       .then( (hiddenData) => {
         return hiddenData;
       });
+
+    hiddenTags = allHiddenTags;
+    hiddenTags.unshift({ name: 'Видалити тег', id: 1 });
 
 
     console.log(hiddenTags);
