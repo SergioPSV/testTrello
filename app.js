@@ -42,9 +42,20 @@ fetch(GET_TAGS_URL)
             ];
           });
       },
-      'card-detail-badges': (t) => t.card('id').get('id').then((id) => ([{
+      'card-detail-badges': (t) => t.card('id')
+        .get('id')
+        .then((id) => ([{
         dynamic: () => getTagForCard(id, t),
-      }])),
+      },
+          {
+            title: "Popup Detail Badge",
+            text: "Popup",
+            callback: function (t, opts) {
+              // function to run on click
+              // do something
+            },
+          },    
+        ])),
     });
   });
 
