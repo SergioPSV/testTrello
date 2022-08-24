@@ -173,12 +173,12 @@ const badgeClickCallback = (tee, cardId) => {
 };
 
 const badgeHiddenTagsCallback = (tee) => {
-  
+
   console.log(typeof hiddenTags);
   console.log(hiddenTags[1].name.toLowerCase());
   console.log(typeof tags);
 
-  const items = (_, options) => hiddenTags.filter(tag => tag.name.includes(options.search)).map(tag => ({
+  const items = (_, options) => hiddenTags.map(tag => ({
           alwaysVisible: false,
           text: tag.name,
           callback: t => t.alert({message: 'Тег знову в строю️', duration: 2}),
