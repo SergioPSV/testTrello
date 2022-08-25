@@ -165,6 +165,7 @@ const badgeClickCallback = (tee, cardId) => {
     newTag = tagName;
     await fetch(CREATE_TAG + `?name=${newTag}`);
     tags = await getTags();
+    tags.unshift({ name: 'Видалити тег', id: 1 });
 
     t.closePopup();
   };
@@ -229,6 +230,7 @@ const hidingTag = async (tagId, t) => {
 
   hiddenTags = await getHideTags();
   tags = await getTags();
+  tags.unshift({ name: 'Видалити тег', id: 1 });
 
   t.closePopup();
 };
@@ -240,6 +242,7 @@ const unhidingTag = async (tagId, t) => {
 
   hiddenTags = await getHideTags();
   tags = await getTags();
+  tags.unshift({ name: 'Видалити тег', id: 1 });
 
   t.closePopup();
 };
