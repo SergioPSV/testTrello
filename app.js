@@ -15,7 +15,7 @@ let currentCardId = '';
 let newTag = '';
 
 const getHideTags = async () => {
-  await fetch(GET_HIDDEN_TAGS_URL).then((response) => response.json()).then( (hiddenData) => {
+  return await fetch(GET_HIDDEN_TAGS_URL).then((response) => response.json()).then( (hiddenData) => {
     return hiddenData;
   })
 };
