@@ -47,11 +47,20 @@ fetch(GET_TAGS_URL)
                     console.log("HTTP error: " + response.status);
                   }
 
-                  return {
-                    text: tagInCard,
-                    color: "red",
-                    refresh: 60, // in seconds
-                  };
+                  if (tagInCard == 'Need tag') {
+                    return {
+                      text: tagInCard,
+                      color: "red",
+                      refresh: 60, // in seconds
+                    };
+                  } else {
+                    return {
+                      text: tagInCard,
+                      color: "green",
+                      refresh: 60, // in seconds
+                    };
+                  }
+                  
                 },
               }
             ];
