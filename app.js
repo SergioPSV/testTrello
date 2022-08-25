@@ -11,6 +11,7 @@ let tags = [];
 let currentTag = '';
 let currentCardId = '';
 let findIdTag = '';
+let tagInCard = '';
 
 const getTags = async () => {
   return await fetch(GET_TAGS_URL).then((response) => response.json())
@@ -99,7 +100,12 @@ const getTagForCard = (cardId, t) => new Promise(async resolve => {
 
     if (response.ok) {
       const { errorCode, tagId } = await response.json();
-      currentTag = !errorCode ? tags.find(t => t.id === tagId).name : DEFAULT_TAG;
+      tagInCard = tags.find(t => t.id === tagId);
+      if (tagInCard.hidden) {
+        currentTag = !errorCode ? '🙈' + tagInCard.name : DEFAULT_TAG;
+      } else {
+        currentTag = !errorCode ? tagInCard.name : DEFAULT_TAG;
+      }
     } else {
       console.log("HTTP error: " + response.status);
     }
@@ -119,7 +125,7 @@ const getTagForCard = (cardId, t) => new Promise(async resolve => {
 });
 
 const saveTagForCard = async (tagName, cardId, t) => {
-  t.alert({message: 'Сохраняем тег...', duration: 10});
+  t.alert({message: 'Кріплю тег до тікету...', duration: 10});
 
   const {id:tagId} = tags.find(t => t.name === tagName);
   if (tagId === 1) {
