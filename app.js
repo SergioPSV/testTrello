@@ -166,11 +166,10 @@ const badgeClickCallback = (tee, cardId) => {
 
     await fetch(CREATE_TAG + `?name=${tagName}`);
     tags = await getTags();
-    
+
     findIdTag = tags.find( tag => tag.name == tagName);
     await saveTagForCard(findIdTag.name, cardId, t);
 
-    t.closePopup();
   };
 
   return tee.popup({
