@@ -174,30 +174,13 @@ const badgeClickCallback = (tee, cardId) => {
 
 const badgeHiddenTagsCallback = (tee) => {
 
-  console.log(typeof hiddenTags);
-  console.log(hiddenTags[1].name.toLowerCase());
-  console.log(typeof tags);
-
-  let arr = [];
-  hiddenTags.map( tag => arr.push(tag.name));
-
-
-
-  const items = (_, options) => arr.filter( el => el.includes(options.search)).map(el => ({
-          alwaysVisible: false,
-          text: el,
-          callback: t => t.alert({message: 'Тег знову в строю️', duration: 2}),
-        })
-        );
-
-
-  // const items = (_, options) => hiddenTags.filter(tag =>
-  //     tag.name.toLowerCase().includes(options.search.toLowerCase())).map(tag => ({
-  //       alwaysVisible: false,
-  //       text: tag.name,
-  //       callback: t => t.alert({message: 'Тег знову в строю️', duration: 2}),
-  //     })
-  //   );
+  const items = (_, options) => hiddenTags.filter(tag =>
+      tag.name.toLowerCase().includes(options.search.toLowerCase())).map(tag => ({
+        alwaysVisible: false,
+        text: tag.name,
+        callback: t => t.alert({message: 'Тег знову в строю️', duration: 2}),
+      })
+    );
 
     return tee.popup({
       title: 'Теги проблем',
