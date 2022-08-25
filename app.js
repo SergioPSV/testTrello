@@ -18,11 +18,7 @@ fetch(GET_TAGS_URL)
   .then((response) => response.json())
   .then( async (data) => {
 
-    hiddenTags = await fetch(GET_HIDDEN_TAGS_URL)
-      .then((response) => response.json())
-      .then( (hiddenData) => {
-        return hiddenData;
-      });
+    hiddenTags = await getHideTags();
 
     tags = data;
     tags.unshift({ name: 'Видалити тег', id: 1 });
@@ -218,9 +214,8 @@ const hidingTag = async (tagId, t) => {
 
   await fetch(HIDE_TAG + `?tagId=${tagId}`);
 
-  hiddenTags = await fetch(GET_HIDDEN_TAGS_URL).then((response) => response.json()).then( (hiddenData) => {
-    return hiddenData;
-  });
+  hiddenTags = await getHideTags();
+  
   tags = await fetch(GET_TAGS_URL).then((response) => response.json()).then( (tags) => {
     return tags;
   });
@@ -233,12 +228,18 @@ const unhidingTag = async (tagId, t) => {
 
   await fetch(UNHIDE_TAG + `?tagId=${tagId}`);
 
-  hiddenTags = await fetch(GET_HIDDEN_TAGS_URL).then((response) => response.json()).then( (hiddenData) => {
-    return hiddenData;
-  });
+  hiddenTags = await getHideTags();
+  
   tags = await fetch(GET_TAGS_URL).then((response) => response.json()).then( (tags) => {
     return tags;
   });
 
   t.closePopup();
 };
+
+const getHideTags = async () => {
+  await fetch(GET_HIDDEN_TAGS_URL).then((response) => response.json()).then( (hiddenData) => {
+    return hiddenData;
+  })
+};
+
