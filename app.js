@@ -101,6 +101,8 @@ const getTagForCard = (cardId, t) => new Promise(async resolve => {
     if (response.ok) {
       const { errorCode, tagId } = await response.json();
       tagInCard = tags.find(t => t.id === tagId);
+      
+      console.log(tagInCard);
       if (tagInCard.hidden) {
         currentTag = !errorCode ? '🙈 ' + tagInCard.name : DEFAULT_TAG;
       } else {
