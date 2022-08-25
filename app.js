@@ -175,23 +175,23 @@ const badgeClickCallback = (tee, cardId) => {
 const badgeHiddenTagsCallback = (tee) => {
 
   const items = (_, options) => hiddenTags.filter(tag =>
-      tag.name.toLowerCase().includes(options.search.toLowerCase())).map(tag => ({
-        alwaysVisible: false,
-        text: tag.name,
-        callback: t => t.alert({message: 'Тег знову в строю️', duration: 2}),
-      })
-    );
+    tag.name.toLowerCase().includes(options.search.toLowerCase())).map(tag => ({
+      alwaysVisible: false,
+      text: tag.name,
+      callback: t => unhidingTag(tag.id, t),
+    })
+  );
 
-    return tee.popup({
-      title: 'Теги проблем',
-      items,
-      search: {
-        count: 10,
-        placeholder: 'Пошук...',
-        empty: 'Нема результатів'
-      }
-    });
-  };
+  return tee.popup({
+    title: 'Теги проблем',
+    items,
+    search: {
+      count: 10,
+      placeholder: 'Пошук...',
+      empty: 'Нема результатів'
+    }
+  });
+};
 
 
 const badgeHideCallback = (tee) => {
@@ -220,4 +220,12 @@ const hidingTag = async (tagId, t) => {
   await fetch(HIDE_TAG + `?tagId=${tagId}`);
 
   t.closePopup();
-}
+};
+
+const unhidingTag = async (tagId, t) => {
+  t.alert({message: 'Тег знову в строю️', duration: 2});
+
+  await fetch(UNHIDE_TAG + `?tagId=${tagId}`);
+
+  t.closePopup();
+};
