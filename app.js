@@ -20,6 +20,12 @@ const getHideTags = async () => {
   })
 };
 
+const getTags = async () => {
+  return await fetch(GET_TAGS_URL).then((response) => response.json()).then( (tags) => {
+    return tags;
+  })
+};
+
 fetch(GET_TAGS_URL)
   .then((response) => response.json())
   .then( async (data) => {
@@ -158,6 +164,7 @@ const badgeClickCallback = (tee, cardId) => {
 
     newTag = tagName;
     await fetch(CREATE_TAG + `?name=${newTag}`);
+    tags = await getHideTags();
 
     t.closePopup();
   };
@@ -221,10 +228,7 @@ const hidingTag = async (tagId, t) => {
   await fetch(HIDE_TAG + `?tagId=${tagId}`);
 
   hiddenTags = await getHideTags();
-
-  tags = await fetch(GET_TAGS_URL).then((response) => response.json()).then( (tags) => {
-    return tags;
-  });
+  tags = await getHideTags();
 
   t.closePopup();
 };
@@ -235,13 +239,7 @@ const unhidingTag = async (tagId, t) => {
   await fetch(UNHIDE_TAG + `?tagId=${tagId}`);
 
   hiddenTags = await getHideTags();
-
-  tags = await fetch(GET_TAGS_URL).then((response) => response.json()).then( (tags) => {
-    return tags;
-  });
+  tags = await getHideTags();
 
   t.closePopup();
 };
-
-
-
