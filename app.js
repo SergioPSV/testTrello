@@ -164,7 +164,7 @@ const badgeClickCallback = (tee, cardId) => {
 
     newTag = tagName;
     await fetch(CREATE_TAG + `?name=${newTag}`);
-    tags = await getHideTags();
+    tags = await getTags();
 
     t.closePopup();
   };
@@ -228,7 +228,7 @@ const hidingTag = async (tagId, t) => {
   await fetch(HIDE_TAG + `?tagId=${tagId}`);
 
   hiddenTags = await getHideTags();
-  tags = await getHideTags();
+  tags = await getTags();
 
   t.closePopup();
 };
@@ -239,7 +239,7 @@ const unhidingTag = async (tagId, t) => {
   await fetch(UNHIDE_TAG + `?tagId=${tagId}`);
 
   hiddenTags = await getHideTags();
-  tags = await getHideTags();
+  tags = await getTags();
 
   t.closePopup();
 };
