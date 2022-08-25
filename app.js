@@ -9,26 +9,21 @@ const UNHIDE_TAG = 'https://us-central1-trello-tags.cloudfunctions.net/unhideTag
 const DEFAULT_TAG = 'Обрати тег';
 
 let tags = [];
-let hiddenTags = [];
 let currentTag = '';
 let currentCardId = '';
 let newTag = '';
 
-const getHideTags = async () => {
-  return await fetch(GET_HIDDEN_TAGS_URL).then((response) => response.json())
-};
+// const getHideTags = async () => {
+//   return await fetch(GET_HIDDEN_TAGS_URL).then((response) => response.json())
+// };
 
 const getTags = async () => {
-  return await fetch(GET_TAGS_URL).then((response) => response.json()).then( (tags) => {
-    return tags;
-  })
+  return await fetch(GET_TAGS_URL).then((response) => response.json())
 };
 
 fetch(GET_TAGS_URL)
   .then((response) => response.json())
   .then( async (data) => {
-
-    hiddenTags = await getHideTags();
 
     tags = data;
     tags.unshift({ name: 'Видалити тег', id: 1 });
@@ -70,7 +65,7 @@ fetch(GET_TAGS_URL)
           },
           {
             title: "Щось сховати? 🥷",
-            text: "Всі теги",
+            text: "Хочу обрати",
             color: "blue",
             callback: (tee) => badgeHideCallback(tee),
           },
@@ -160,7 +155,6 @@ const badgeClickCallback = (tee, cardId) => {
     newTag = tagName;
     await fetch(CREATE_TAG + `?name=${newTag}`);
     tags = await getTags();
-    tags.unshift({ name: 'Видалити тег', id: 1 });
 
     t.closePopup();
   };
@@ -178,8 +172,8 @@ const badgeClickCallback = (tee, cardId) => {
 
 const badgeHiddenTagsCallback = (tee) => {
 
-  const items = (_, options) => hiddenTags.filter(tag =>
-    tag.name.toLowerCase().includes(options.search.toLowerCase())).map(tag => ({
+  const items = (_, options) => tags.filter(tag =>
+    tag.name.toLowerCase().includes(options.search.toLowerCase()) && tag.id != 1 && tag.hidden ).map(tag => ({
       alwaysVisible: false,
       text: tag.name,
       callback: t => unhidingTag(tag.id, t),
@@ -200,7 +194,7 @@ const badgeHiddenTagsCallback = (tee) => {
 
 const badgeHideCallback = (tee) => {
   const items = (_, options) => tags.filter(tag =>
-    tag.name.toLowerCase().includes( options.search.toLowerCase() ) ).map(tag => ({
+    tag.name.toLowerCase().includes(options.search.toLowerCase()) && tag.id != 1 && !tag.hidden ).map(tag => ({
       alwaysVisible: false,
       text: tag.name,
       callback: t => hidingTag(tag.id, t),
@@ -223,9 +217,7 @@ const hidingTag = async (tagId, t) => {
 
   await fetch(HIDE_TAG + `?tagId=${tagId}`);
 
-  hiddenTags = await getHideTags();
   tags = await getTags();
-  tags.unshift({ name: 'Видалити тег', id: 1 });
 
   t.closePopup();
 };
@@ -235,9 +227,7 @@ const unhidingTag = async (tagId, t) => {
 
   await fetch(UNHIDE_TAG + `?tagId=${tagId}`);
 
-  hiddenTags = await getHideTags();
   tags = await getTags();
-  tags.unshift({ name: 'Видалити тег', id: 1 });
 
   t.closePopup();
 };
