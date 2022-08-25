@@ -3,7 +3,6 @@ const DELETE_TAG_URL = 'https://us-central1-trello-tags.cloudfunctions.net/delet
 const SAVE_TAG_URL = 'https://us-central1-trello-tags.cloudfunctions.net/saveTagCard';
 const GET_TAGS_URL = 'https://us-central1-trello-tags.cloudfunctions.net/getTags';
 const CREATE_TAG = 'https://us-central1-trello-tags.cloudfunctions.net/createTag';
-const GET_HIDDEN_TAGS_URL = 'https://us-central1-trello-tags.cloudfunctions.net/getHiddenTags';
 const HIDE_TAG = 'https://us-central1-trello-tags.cloudfunctions.net/hideTag';
 const UNHIDE_TAG = 'https://us-central1-trello-tags.cloudfunctions.net/unhideTag';
 const DEFAULT_TAG = 'Обрати тег';
@@ -12,10 +11,6 @@ let tags = [];
 let currentTag = '';
 let currentCardId = '';
 let newTag = '';
-
-// const getHideTags = async () => {
-//   return await fetch(GET_HIDDEN_TAGS_URL).then((response) => response.json())
-// };
 
 const getTags = async () => {
   return await fetch(GET_TAGS_URL).then((response) => response.json())
@@ -60,7 +55,6 @@ fetch(GET_TAGS_URL)
                       refresh: 60, // in seconds
                     };
                   }
-                  
                 },
               }
             ];
@@ -170,9 +164,10 @@ const badgeClickCallback = (tee, cardId) => {
   const confirmNewTag = async (t, tagName) => {
     t.alert({message: 'Зберігаю його для тебе ❤️', duration: 2});
 
-    newTag = tagName;
-    await fetch(CREATE_TAG + `?name=${newTag}`);
+    await fetch(CREATE_TAG + `?name=${tagName}`);
     tags = await getTags();
+    let findIdTag = tags.find( tag => tag.name == tagName);
+    console.log(cardId, findIdTag);
 
     t.closePopup();
   };
@@ -234,7 +229,6 @@ const hidingTag = async (tagId, t) => {
   t.alert({message: 'Ховаю тег...', duration: 3});
 
   await fetch(HIDE_TAG + `?tagId=${tagId}`);
-
   tags = await getTags();
 
   t.closePopup();
@@ -244,7 +238,6 @@ const unhidingTag = async (tagId, t) => {
   t.alert({message: 'Тег знову в строю️', duration: 3});
 
   await fetch(UNHIDE_TAG + `?tagId=${tagId}`);
-
   tags = await getTags();
 
   t.closePopup();
