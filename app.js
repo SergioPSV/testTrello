@@ -22,7 +22,7 @@ fetch(GET_TAGS_URL)
   .then( async (data) => {
 
     tags = data;
-    tags.unshift({ name: 'Видалити тег', id: 1 });
+    tags.unshift({ name: 'Видалити тег', id: 1, hidden: false });
 
     window.TrelloPowerUp.initialize({
       "card-badges": function (t, opts) {
@@ -102,7 +102,7 @@ const getTagForCard = (cardId, t) => new Promise(async resolve => {
       const { errorCode, tagId } = await response.json();
       tagInCard = tags.find(t => t.id === tagId);
       if (tagInCard.hidden) {
-        currentTag = !errorCode ? '🙈' + tagInCard.name : DEFAULT_TAG;
+        currentTag = !errorCode ? '🙈 ' + tagInCard.name : DEFAULT_TAG;
       } else {
         currentTag = !errorCode ? tagInCard.name : DEFAULT_TAG;
       }
