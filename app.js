@@ -36,24 +36,20 @@ fetch(GET_TAGS_URL)
     window.TrelloPowerUp.initialize({
       "card-badges": function (t, opts) {
         return t
-          .card("name")
-          .get("name")
-          .then(function (cardName) {
+          .card("id")
+          .get("id")
+          .then(function (cardId) {
             return [
               {
                 dynamic: function () {
 
                   return {
-                    text: cardName,
+                    text: cardId,
                     color: "green",
                     refresh: 60, // in seconds
                   };
                 },
-              },
-              {
-                text: "Static",
-                color: null,
-              },
+              }
             ];
           });
       },
@@ -133,7 +129,7 @@ const saveTagForCard = async (tagName, cardId, t) => {
 const badgeClickCallback = (tee, cardId) => {
   const items = (_, options) => {
     let searchTags = tags.filter(tag =>
-      tag.name.toLowerCase().includes(options.search.toLowerCase()) || tag.id === 1).map(tag => ({
+      tag.name.toLowerCase().includes(options.search.toLowerCase()) && !tag.hidden || tag.id === 1).map(tag => ({
         alwaysVisible: tag.id === 1,
         text: tag.name,
         callback: t => saveTagForCard(tag.name, cardId, t),
