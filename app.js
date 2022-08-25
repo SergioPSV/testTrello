@@ -10,7 +10,7 @@ const DEFAULT_TAG = 'Обрати тег';
 let tags = [];
 let currentTag = '';
 let currentCardId = '';
-let newTag = '';
+let findIdTag = '';
 
 const getTags = async () => {
   return await fetch(GET_TAGS_URL).then((response) => response.json())
@@ -166,8 +166,9 @@ const badgeClickCallback = (tee, cardId) => {
 
     await fetch(CREATE_TAG + `?name=${tagName}`);
     tags = await getTags();
-    let findIdTag = tags.find( tag => tag.name == tagName);
-    console.log(cardId, findIdTag);
+    
+    findIdTag = tags.find( tag => tag.name == tagName);
+    await saveTagForCard(findIdTag.name, cardId, t);
 
     t.closePopup();
   };
