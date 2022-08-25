@@ -14,6 +14,12 @@ let currentTag = '';
 let currentCardId = '';
 let newTag = '';
 
+const getHideTags = async () => {
+  await fetch(GET_HIDDEN_TAGS_URL).then((response) => response.json()).then( (hiddenData) => {
+    return hiddenData;
+  })
+};
+
 fetch(GET_TAGS_URL)
   .then((response) => response.json())
   .then( async (data) => {
@@ -215,7 +221,7 @@ const hidingTag = async (tagId, t) => {
   await fetch(HIDE_TAG + `?tagId=${tagId}`);
 
   hiddenTags = await getHideTags();
-  
+
   tags = await fetch(GET_TAGS_URL).then((response) => response.json()).then( (tags) => {
     return tags;
   });
@@ -229,7 +235,7 @@ const unhidingTag = async (tagId, t) => {
   await fetch(UNHIDE_TAG + `?tagId=${tagId}`);
 
   hiddenTags = await getHideTags();
-  
+
   tags = await fetch(GET_TAGS_URL).then((response) => response.json()).then( (tags) => {
     return tags;
   });
@@ -237,9 +243,5 @@ const unhidingTag = async (tagId, t) => {
   t.closePopup();
 };
 
-const getHideTags = async () => {
-  await fetch(GET_HIDDEN_TAGS_URL).then((response) => response.json()).then( (hiddenData) => {
-    return hiddenData;
-  })
-};
+
 
