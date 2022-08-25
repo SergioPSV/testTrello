@@ -215,9 +215,11 @@ const badgeHideCallback = (tee) => {
 };
 
 const hidingTag = async (tagId, t) => {
-  t.alert({message: 'Ховаю тег...', duration: 10});
+  t.alert({message: 'Ховаю тег...', duration: 2});
 
   await fetch(HIDE_TAG + `?tagId=${tagId}`);
+  
+  tags = [{name: 'tes', id: '1'},{name: 'tes2', id: '2'},{name: 'tes3', id: '3'}]
 
   t.closePopup();
 };
