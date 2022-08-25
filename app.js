@@ -23,7 +23,6 @@ fetch(GET_TAGS_URL)
       .then( (hiddenData) => {
         return hiddenData;
       });
-    console.log(hiddenTags);
 
     tags = data;
     tags.unshift({ name: 'Видалити тег', id: 1 });
@@ -215,19 +214,31 @@ const badgeHideCallback = (tee) => {
 };
 
 const hidingTag = async (tagId, t) => {
-  t.alert({message: 'Ховаю тег...', duration: 2});
+  t.alert({message: 'Ховаю тег...', duration: 3});
 
   await fetch(HIDE_TAG + `?tagId=${tagId}`);
-  
-  tags = [{name: 'tes', id: '1'},{name: 'tes2', id: '2'},{name: 'tes3', id: '3'}]
+
+  hiddenTags = await fetch(GET_HIDDEN_TAGS_URL).then((response) => response.json()).then( (hiddenData) => {
+    return hiddenData;
+  });
+  tags = await fetch(GET_TAGS_URL).then((response) => response.json()).then( (tags) => {
+    return tags;
+  });
 
   t.closePopup();
 };
 
 const unhidingTag = async (tagId, t) => {
-  t.alert({message: 'Тег знову в строю️', duration: 2});
+  t.alert({message: 'Тег знову в строю️', duration: 3});
 
   await fetch(UNHIDE_TAG + `?tagId=${tagId}`);
+
+  hiddenTags = await fetch(GET_HIDDEN_TAGS_URL).then((response) => response.json()).then( (hiddenData) => {
+    return hiddenData;
+  });
+  tags = await fetch(GET_TAGS_URL).then((response) => response.json()).then( (tags) => {
+    return tags;
+  });
 
   t.closePopup();
 };
