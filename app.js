@@ -36,11 +36,20 @@ fetch(GET_TAGS_URL)
           .then(function (cardId) {
             return [
               {
-                dynamic: function () {
+                dynamic: async () => {
+                  let findCard = await fetch(GET_TAG_URL + cardId);
+                  let tagInCard = '';
+
+                  if (findCard.ok) {
+                    const { errorCode, tagId } = await findCard.json();
+                    tagInCard = !errorCode ? tags.find(t => t.id === tagId).name : "Need tag";
+                  } else {
+                    console.log("HTTP error: " + response.status);
+                  }
 
                   return {
-                    text: cardId,
-                    color: "green",
+                    text: tagInCard,
+                    color: "red",
                     refresh: 60, // in seconds
                   };
                 },
