@@ -15,9 +15,7 @@ let currentCardId = '';
 let newTag = '';
 
 const getHideTags = async () => {
-  return await fetch(GET_HIDDEN_TAGS_URL).then((response) => response.json()).then( (hiddenData) => {
-    return hiddenData;
-  })
+  return await fetch(GET_HIDDEN_TAGS_URL).then((response) => response.json())
 };
 
 const getTags = async () => {
@@ -37,7 +35,6 @@ fetch(GET_TAGS_URL)
 
     window.TrelloPowerUp.initialize({
       "card-badges": function (t, opts) {
-        let cardAttachments = opts.attachments; // Trello passes you the attachments on the card
         return t
           .card("name")
           .get("name")
@@ -47,7 +44,7 @@ fetch(GET_TAGS_URL)
                 dynamic: function () {
 
                   return {
-                    text: "Dynamic " + (Math.random() * 100).toFixed(0).toString(),
+                    text: cardName,
                     color: "green",
                     refresh: 60, // in seconds
                   };
@@ -69,6 +66,7 @@ fetch(GET_TAGS_URL)
           {
             title: "Світ змінюється",
             text: "І тег зміню",
+            color: "blue",
             callback: function (t, opts) {
               // function to run on click
               // do something
@@ -77,6 +75,7 @@ fetch(GET_TAGS_URL)
           {
             title: "Щось сховати? 🥷",
             text: "Всі теги",
+            color: "blue",
             callback: (tee) => badgeHideCallback(tee),
           },
           {
