@@ -286,7 +286,7 @@ const badgeChangeTagCallback = (tee) => {
 
     console.log(tagId, newTagName);
 
-    await fetch(MODIFY_TAG + `?tagId=${tagId}&name${newTagName}`);
+    await fetch(MODIFY_TAG + `?tagId=${tagId}&name=${newTagName}`);
     tags = await getTags();
 
     t.closePopup();
