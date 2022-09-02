@@ -47,13 +47,13 @@ fetch(GET_TAGS_URL)
                     return {
                       text: tagInCard,
                       color: "red",
-                      refresh: 60, // in seconds
+                      refresh: 60,
                     };
                   } else {
                     return {
                       text: tagInCard,
                       color: "green",
-                      refresh: 60, // in seconds
+                      refresh: 60,
                     };
                   }
                 },
@@ -71,10 +71,7 @@ fetch(GET_TAGS_URL)
             title: "Світ змінюється",
             text: "І тег зміню",
             color: "blue",
-            callback: function (t, opts) {
-              // function to run on click
-              // do something
-            },
+            callback: (tee) => badgeChangeTagCallback(tee),
           },
           {
             title: "Щось сховати? 🥷",
@@ -102,7 +99,6 @@ const getTagForCard = (cardId, t) => new Promise(async resolve => {
       const { errorCode, tagId } = await response.json();
       tagInCard = tags.find(t => t.id === tagId);
 
-      console.log(tagInCard, tagId);
       if (tagInCard && tagInCard.hidden) {
         currentTag = !errorCode ? '🙈 ' + tagInCard.name : DEFAULT_TAG;
       } else {
@@ -249,4 +245,38 @@ const unhidingTag = async (tagId, t) => {
   tags = await getTags();
 
   t.closePopup();
+};
+
+
+const badgeChangeTagCallback = (tee) => {
+  const items = (_, options) => {
+    return tags.filter(tag =>
+      tag.name.toLowerCase().includes(options.search.toLowerCase()) && !tag.hidden || tag.id === 1).map(tag => ({
+        alwaysVisible: tag.id === 1,
+        text: tag.name,
+        callback: t => t.alert({message: 'Вже змінюю...️', duration: 2}),
+      })
+    );
+  };
+
+  // const confirmNewTag = async (t, tagName) => {
+  //   t.alert({message: 'Вже змінюю...️', duration: 2});
+  //
+  //   await fetch(CREATE_TAG + `?name=${tagName}`);
+  //   tags = await getTags();
+  //
+  //   findIdTag = tags.find( tag => tag.name == tagName);
+  //   await saveTagForCard(findIdTag.name, cardId, t);
+  //
+  // };
+
+  return tee.popup({
+    title: 'Теги проблем',
+    items,
+    search: {
+      count: 5,
+      placeholder: 'Пошук...',
+      empty: 'Нічого не знайдено'
+    }
+  });
 };
