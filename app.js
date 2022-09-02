@@ -5,6 +5,7 @@ const GET_TAGS_URL = 'https://us-central1-trello-tags.cloudfunctions.net/getTags
 const CREATE_TAG = 'https://us-central1-trello-tags.cloudfunctions.net/createTag';
 const HIDE_TAG = 'https://us-central1-trello-tags.cloudfunctions.net/hideTag';
 const UNHIDE_TAG = 'https://us-central1-trello-tags.cloudfunctions.net/unhideTag';
+const MODIFY_TAG = 'https://us-central1-trello-tags.cloudfunctions.net/modifyTag';
 const DEFAULT_TAG = 'Обрати тег';
 
 let tags = [];
@@ -282,12 +283,11 @@ const badgeChangeTagCallback = (tee) => {
 
   const changeTagName = async (t, newTagName, tagId) => {
     t.alert({message: `Вже змінюю...️ на ${newTagName} його id ${tagId}`, duration: 2});
+    
+    console.log(tagId);
 
-    // await fetch(CREATE_TAG + `?name=${tagName}`);
-    // tags = await getTags();
-    //
-    // findIdTag = tags.find( tag => tag.name == tagName);
-    // await saveTagForCard(findIdTag.name, cardId, t);
+    await fetch(MODIFY_TAG + `?tagId=${tagId}&name${newTagName}`);
+    tags = await getTags();
 
   };
 
