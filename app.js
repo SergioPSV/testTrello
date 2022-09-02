@@ -251,12 +251,39 @@ const unhidingTag = async (tagId, t) => {
 const badgeChangeTagCallback = (tee) => {
   const items = (_, options) => {
     return tags.filter(tag =>
-      tag.name.toLowerCase().includes(options.search.toLowerCase()) && !tag.hidden || tag.id === 1).map(tag => ({
-        alwaysVisible: tag.id === 1,
+      tag.name.toLowerCase().includes(options.search.toLowerCase()) && !tag.hidden && tag.id != 1).map(tag => ({
+        alwaysVisible: false,
         text: tag.name,
-        callback: t => t.alert({message: 'Вже змінюю...️', duration: 2}),
+        callback: t => badgeNewNameTag(t),
       })
     );
+  };
+
+
+  const badgeNewNameTag = (tee) => {
+    const items = (_, options) => {
+      return {
+            alwaysVisible: true,
+            text: options.search,
+            callback: t => t.alert({message: 'Вже змінюю...️', duration: 2}),
+          }
+      // return tags.filter(tag => 
+      //   tag.name.toLowerCase().includes(options.search.toLowerCase()) && !tag.hidden || tag.id != 1).map(tag => ({
+      //     alwaysVisible: tag.id === 1,
+      //     text: options.search,
+      //     callback: t => t.alert({message: 'Вже змінюю...️', duration: 2}),
+      //   })
+      // );
+    };
+
+    return tee.popup({
+      title: 'Редагувати тег',
+      items,
+      search: {
+        count: 5,
+        placeholder: 'Введи нове імʼя',
+      }
+    });
   };
 
   // const confirmNewTag = async (t, tagName) => {
