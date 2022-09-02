@@ -282,13 +282,14 @@ const badgeChangeTagCallback = (tee) => {
   };
 
   const changeTagName = async (t, newTagName, tagId) => {
-    t.alert({message: `Вже змінюю...️ на ${newTagName} його id ${tagId}`, duration: 2});
-    
-    console.log(tagId);
+    t.alert({message: `Вже змінюю...`, duration: 2});
+
+    console.log(tagId, newTagName);
 
     await fetch(MODIFY_TAG + `?tagId=${tagId}&name${newTagName}`);
     tags = await getTags();
 
+    t.closePopup();
   };
 
   return tee.popup({
