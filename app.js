@@ -254,26 +254,19 @@ const badgeChangeTagCallback = (tee) => {
       tag.name.toLowerCase().includes(options.search.toLowerCase()) && !tag.hidden && tag.id != 1).map(tag => ({
         alwaysVisible: false,
         text: tag.name,
-        callback: t => badgeNewNameTag(t),
+        callback: t => badgeNewNameTag(t, tag.name, tag.id),
       })
     );
   };
 
 
-  const badgeNewNameTag = (tee) => {
+  const badgeNewNameTag = (tee, tagName, tagId) => {
     const items = (_, options) => {
       return [{
             alwaysVisible: true,
             text: options.search,
-            callback: t => t.alert({message: 'Вже змінюю...️', duration: 2}),
+            callback: t => changeTagName(t, options.search, tagId),
           }]
-      // return tags.filter(tag =>
-      //   tag.name.toLowerCase().includes(options.search.toLowerCase()) && !tag.hidden || tag.id != 1).map(tag => ({
-      //     alwaysVisible: tag.id === 1,
-      //     text: options.search,
-      //     callback: t => t.alert({message: 'Вже змінюю...️', duration: 2}),
-      //   })
-      // );
     };
 
     return tee.popup({
@@ -282,20 +275,21 @@ const badgeChangeTagCallback = (tee) => {
       search: {
         count: 5,
         placeholder: 'Введи нове імʼя',
+        empty: `Змінити тег "${tagName}" на:`
       }
     });
   };
 
-  // const confirmNewTag = async (t, tagName) => {
-  //   t.alert({message: 'Вже змінюю...️', duration: 2});
-  //
-  //   await fetch(CREATE_TAG + `?name=${tagName}`);
-  //   tags = await getTags();
-  //
-  //   findIdTag = tags.find( tag => tag.name == tagName);
-  //   await saveTagForCard(findIdTag.name, cardId, t);
-  //
-  // };
+  const changeTagName = async (t, newTagName, tagId) => {
+    t.alert({message: `Вже змінюю...️ на ${newTagName} його id ${tagId}`, duration: 2});
+
+    // await fetch(CREATE_TAG + `?name=${tagName}`);
+    // tags = await getTags();
+    //
+    // findIdTag = tags.find( tag => tag.name == tagName);
+    // await saveTagForCard(findIdTag.name, cardId, t);
+
+  };
 
   return tee.popup({
     title: 'Теги проблем',
