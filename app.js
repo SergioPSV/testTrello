@@ -13,6 +13,8 @@ let currentTag = '';
 let currentCardId = '';
 let findIdTag = '';
 let tagInCard = '';
+let memberName = '';
+let shortLinkTrelloCard = '';
 
 const getTags = async () => {
   return await fetch(GET_TAGS_URL).then((response) => response.json())
@@ -194,7 +196,7 @@ const badgeHiddenTagsCallback = (tee) => {
     tag.name.toLowerCase().includes(options.search.toLowerCase()) && tag.id != 1 && tag.hidden ).map(tag => ({
       alwaysVisible: false,
       text: tag.name,
-      callback: t => unhidingTag(tag.id, t),
+      callback: t => unhidingTag(tag.id, t, tag.name),
     })
   );
 
@@ -239,11 +241,12 @@ const hidingTag = async (tagId, t) => {
   t.closePopup();
 };
 
-const unhidingTag = async (tagId, t) => {
+const unhidingTag = async (tagId, t, tagName) => {
   t.alert({message: 'Тег знову в строю️', duration: 3});
   
-  console.log('t.member ', t.member('fullName') );
-  console.log('card ', t.card('shortLink') );
+  memberName = await t.member('fullName');
+  shortLinkTrelloCard = await t.card('shortLink');
+  console.log(`Member ${memberName} unhide tag ${tagName} (${tagId})`);
   
   await fetch(UNHIDE_TAG + `?tagId=${tagId}`);
   tags = await getTags();
@@ -286,8 +289,6 @@ const badgeChangeTagCallback = (tee) => {
 
   const changeTagName = async (t, newTagName, tagId) => {
     t.alert({message: `Вже змінюю...`, duration: 2});
-
-    console.log(tagId, newTagName);
 
     await fetch(MODIFY_TAG + `?tagId=${tagId}&name=${newTagName}`);
     tags = await getTags();
