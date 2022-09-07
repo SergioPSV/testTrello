@@ -242,7 +242,11 @@ const hidingTag = async (tagId, t) => {
 const unhidingTag = async (tagId, t) => {
   t.alert({message: 'Тег знову в строю️', duration: 3});
   
-  console.log(t);
+  console.log('lists ' t.lists());
+  console.log('card   ' t.card());
+  console.log('t.member(). ' t.member());
+  console.log('memberCanWriteToModel. ' t.memberCanWriteToModel());
+  console.log('isMemberSignedIn. ' t.isMemberSignedIn());
 
   await fetch(UNHIDE_TAG + `?tagId=${tagId}`);
   tags = await getTags();
