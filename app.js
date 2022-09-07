@@ -249,7 +249,7 @@ const unhidingTag = async (tagId, t, tagName) => {
   shortLinkTrelloCard = await t.card('shortLink');
   console.log(`Member ${memberName.fullName} unhide tag "${tagName}" (${tagId})`);
   
-  await fetch(UNHIDE_TAG + `?tagId=${tagId}`);
+  await fetch(UNHIDE_TAG + `?tagId=${tagId}&memberName=${memberName.fullName}&tagName=${tagName}`);
   tags = await getTags();
 
   t.closePopup();
