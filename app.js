@@ -241,6 +241,8 @@ const hidingTag = async (tagId, t) => {
 
 const unhidingTag = async (tagId, t) => {
   t.alert({message: 'Тег знову в строю️', duration: 3});
+  
+  console.log(t);
 
   await fetch(UNHIDE_TAG + `?tagId=${tagId}`);
   tags = await getTags();
