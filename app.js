@@ -244,10 +244,10 @@ const hidingTag = async (tagId, t) => {
 const unhidingTag = async (tagId, t, tagName) => {
   t.alert({message: 'Тег знову в строю️', duration: 3});
   
-  memberName = await t.member('fullName').fullName;
+  memberName = await t.member('fullName');
   
   shortLinkTrelloCard = await t.card('shortLink');
-  console.log(`Member ${memberName} unhide tag "${tagName}" (${tagId})`);
+  console.log(`Member ${memberName.fullName} unhide tag "${tagName}" (${tagId})`);
   
   await fetch(UNHIDE_TAG + `?tagId=${tagId}`);
   tags = await getTags();
