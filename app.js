@@ -242,12 +242,9 @@ const hidingTag = async (tagId, t) => {
 const unhidingTag = async (tagId, t) => {
   t.alert({message: 'Тег знову в строю️', duration: 3});
   
-  console.log('lists ', t.lists("all") );
-  console.log('card   ', t.card("all") );
-  console.log('t.member ', t.member("all") );
-  console.log('memberCanWriteToModel ', t.memberCanWriteToModel('card') );
-  console.log('isMemberSignedIn ', t.isMemberSignedIn() );
-
+  console.log('t.member ', t.member('fullName') );
+  console.log('card ', t.card('shortLink') );
+  
   await fetch(UNHIDE_TAG + `?tagId=${tagId}`);
   tags = await getTags();
 
