@@ -46,19 +46,28 @@ fetch(GET_TAGS_URL)
                     console.log("HTTP error: " + response.status);
                   }
 
-                  if (tagInCard == 'Need tag') {
-                    return {
-                      text: tagInCard,
-                      color: "red",
-                      refresh: 60,
-                    };
-                  } else {
-                    return {
-                      text: tagInCard,
-                      color: "green",
-                      refresh: 60,
-                    };
-                  }
+                  return (tagInCard == 'Need tag') ? {
+                    text: tagInCard,
+                    color: "red",
+                    refresh: 60,
+                  } : {
+                    text: tagInCard,
+                    color: "green",
+                    refresh: 60,
+                  };
+                  // if (tagInCard == 'Need tag') {
+                  //   return {
+                  //     text: tagInCard,
+                  //     color: "red",
+                  //     refresh: 60,
+                  //   };
+                  // } else {
+                  //   return {
+                  //     text: tagInCard,
+                  //     color: "green",
+                  //     refresh: 60,
+                  //   };
+                  // }
                 },
               }
             ];
@@ -138,35 +147,17 @@ const saveTagForCard = async (tagName, cardId, t) => {
   }
 
   t.closePopup();
-}
+};
 
 const badgeClickCallback = (tee, cardId) => {
-  const items = (_, options) => {
-    let searchTags = tags.filter(tag =>
-      tag.name.toLowerCase().includes(options.search.toLowerCase()) && !tag.hidden || tag.id === 1).map(tag => ({
-        alwaysVisible: tag.id === 1,
-        text: tag.name,
-        callback: t => saveTagForCard(tag.name, cardId, t),
-      })
-    );
-
-    if (searchTags.length == 1) {
-      return [{
-        alwaysVisible: true,
-        text: options.search,
-        callback: t => t.popup({
-          type: 'confirm',
-          title: "Створити тег?",
-          message: options.search,
-          confirmText: "Так!",
-          onConfirm: t => confirmNewTag(t, options.search),
-          confirmStyle: 'primary',
-        }),
-      }]
-    } else {
-      return searchTags;
-    }
-  };
+  const createTagCallback = (t, message) => t.popup({
+    type: 'confirm',
+    title: "Створити тег?",
+    message: message,
+    confirmText: "Так!",
+    onConfirm: t => confirmNewTag(t, message),
+    confirmStyle: 'primary',
+  });
 
   const confirmNewTag = async (t, tagName) => {
     t.alert({message: 'Зберігаю його для тебе ❤️', duration: 2});
@@ -176,7 +167,22 @@ const badgeClickCallback = (tee, cardId) => {
 
     findIdTag = tags.find( tag => tag.name == tagName);
     await saveTagForCard(findIdTag.name, cardId, t);
+  };
 
+  const items = (_, options) => {
+    let searchTags = tags.filter(tag =>
+      tag.name.toLowerCase().includes(options.search.toLowerCase()) && !tag.hidden || tag.id === 1).map(tag => ({
+        alwaysVisible: tag.id === 1,
+        text: tag.name,
+        callback: t => saveTagForCard(tag.name, cardId, t),
+      })
+    );
+
+    return searchTags.length == 1 ? [{
+      alwaysVisible: true,
+      text: options.search,
+      callback: t => createTagCallback(t, options.search),
+    }] : searchTags;
   };
 
   return tee.popup({
@@ -196,7 +202,7 @@ const badgeHiddenTagsCallback = (tee) => {
     tag.name.toLowerCase().includes(options.search.toLowerCase()) && tag.id != 1 && tag.hidden ).map(tag => ({
       alwaysVisible: false,
       text: tag.name,
-      callback: t => unhidingTag(tag.id, t, tag.name),
+      callback: t => hideOrUnhideTag(tag.id, t, tag.name, UNHIDE_TAG),
     })
   );
 
@@ -217,7 +223,7 @@ const badgeHideCallback = (tee) => {
     tag.name.toLowerCase().includes(options.search.toLowerCase()) && tag.id != 1 && !tag.hidden ).map(tag => ({
       alwaysVisible: false,
       text: tag.name,
-      callback: t => hidingTag(tag.id, t),
+      callback: t => hideOrUnhideTag(tag.id, t, tag.name, HIDE_TAG),
     })
   );
 
@@ -232,24 +238,15 @@ const badgeHideCallback = (tee) => {
   });
 };
 
-const hidingTag = async (tagId, t) => {
-  t.alert({message: 'Ховаю тег...', duration: 3});
+const hideOrUnhideTag = async (tagId, t, tagName, action) => {
+  t.alert({message: 'Ховаю/Показую тег', duration: 3});
 
-  await fetch(HIDE_TAG + `?tagId=${tagId}`);
-  tags = await getTags();
-
-  t.closePopup();
-};
-
-const unhidingTag = async (tagId, t, tagName) => {
-  t.alert({message: 'Тег знову в строю️', duration: 3});
-  
   memberName = await t.member('fullName');
-  
+
   shortLinkTrelloCard = await t.card('shortLink');
   console.log(`Member ${memberName.fullName} unhide tag "${tagName}" (${tagId})`);
-  
-  await fetch(UNHIDE_TAG + `?tagId=${tagId}&memberName=${memberName.fullName}&tagName=${tagName}`);
+
+  await fetch(action + `?tagId=${tagId}&memberName=${memberName.fullName}&tagName=${tagName}`);
   tags = await getTags();
 
   t.closePopup();
@@ -266,15 +263,14 @@ const badgeChangeTagCallback = (tee) => {
       })
     );
   };
-
-
+  
   const badgeNewNameTag = (tee, tagName, tagId) => {
     const items = (_, options) => {
       return [{
-            alwaysVisible: true,
-            text: options.search,
-            callback: t => changeTagName(t, options.search, tagId),
-          }]
+        alwaysVisible: true,
+        text: options.search,
+        callback: t => changeTagName(t, options.search, tagId),
+      }]
     };
 
     return tee.popup({
