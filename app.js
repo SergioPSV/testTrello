@@ -46,28 +46,11 @@ fetch(GET_TAGS_URL)
                     console.log("HTTP error: " + response.status);
                   }
 
-                  return (tagInCard == 'Need tag') ? {
+                  return {
                     text: tagInCard,
-                    color: "red",
-                    refresh: 60,
-                  } : {
-                    text: tagInCard,
-                    color: "green",
+                    color: tagInCard == 'Need tag' ? "red" : "green",
                     refresh: 60,
                   };
-                  // if (tagInCard == 'Need tag') {
-                  //   return {
-                  //     text: tagInCard,
-                  //     color: "red",
-                  //     refresh: 60,
-                  //   };
-                  // } else {
-                  //   return {
-                  //     text: tagInCard,
-                  //     color: "green",
-                  //     refresh: 60,
-                  //   };
-                  // }
                 },
               }
             ];
@@ -89,13 +72,13 @@ fetch(GET_TAGS_URL)
             title: "Щось сховати? 🥷",
             text: "Хочу обрати",
             color: "blue",
-            callback: (tee) => badgeHideCallback(tee),
+            callback: (tee) => badgeHiddenTagsCallback(tee, false, HIDE_TAG),
           },
           {
             title: "Потаємне 🤫",
             text: "Показати",
             color: "blue",
-            callback: (tee) => badgeHiddenTagsCallback(tee),
+            callback: (tee) => badgeHiddenTagsCallback(tee, true, UNHIDE_TAG),
           },
         ])),
     });
@@ -196,34 +179,13 @@ const badgeClickCallback = (tee, cardId) => {
   });
 };
 
-const badgeHiddenTagsCallback = (tee) => {
+const badgeHiddenTagsCallback = (tee, rule, action) => {
 
   const items = (_, options) => tags.filter(tag =>
-    tag.name.toLowerCase().includes(options.search.toLowerCase()) && tag.id != 1 && tag.hidden ).map(tag => ({
+    tag.name.toLowerCase().includes(options.search.toLowerCase()) && tag.id != 1 && tag.hidden == rule ).map(tag => ({
       alwaysVisible: false,
       text: tag.name,
-      callback: t => hideOrUnhideTag(tag.id, t, tag.name, UNHIDE_TAG),
-    })
-  );
-
-  return tee.popup({
-    title: 'Теги проблем',
-    items,
-    search: {
-      count: 10,
-      placeholder: 'Пошук...',
-      empty: 'Нема результатів'
-    }
-  });
-};
-
-
-const badgeHideCallback = (tee) => {
-  const items = (_, options) => tags.filter(tag =>
-    tag.name.toLowerCase().includes(options.search.toLowerCase()) && tag.id != 1 && !tag.hidden ).map(tag => ({
-      alwaysVisible: false,
-      text: tag.name,
-      callback: t => hideOrUnhideTag(tag.id, t, tag.name, HIDE_TAG),
+      callback: t => hideOrUnhideTag(tag.id, t, tag.name, action),
     })
   );
 
@@ -263,7 +225,7 @@ const badgeChangeTagCallback = (tee) => {
       })
     );
   };
-  
+
   const badgeNewNameTag = (tee, tagName, tagId) => {
     const items = (_, options) => {
       return [{
