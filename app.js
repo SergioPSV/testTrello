@@ -6,6 +6,7 @@ const CREATE_TAG = 'https://us-central1-trello-tags.cloudfunctions.net/createTag
 const HIDE_TAG = 'https://us-central1-trello-tags.cloudfunctions.net/hideTag';
 const UNHIDE_TAG = 'https://us-central1-trello-tags.cloudfunctions.net/unhideTag';
 const MODIFY_TAG = 'https://us-central1-trello-tags.cloudfunctions.net/modifyTag';
+const DELETE_TAG = 'https://us-central1-trello-tags.cloudfunctions.net/deleteTag';
 const DEFAULT_TAG = 'Обрати тег';
 
 let tags = [];
@@ -134,7 +135,7 @@ const actionsWithTags = async (t, opts) =>  {
       callback: (tee) => badgeHiddenTagsCallback(tee, true, UNHIDE_TAG)
     }, {
       text: 'Видалити ❌',
-      callback: (tee) => badgeHiddenTagsCallback(tee, true, UNHIDE_TAG)
+      callback: (tee) => badgeDeleteTagsCallback(tee, DELETE_TAG)
     }]
   });
 };
@@ -224,6 +225,37 @@ const hideOrUnhideTag = async (tagId, t, tagName, action) => {
   t.closePopup();
 };
 
+const badgeDeleteTagsCallback = (tee, action) => {
+
+  const items = (_, options) => tags.filter(tag =>
+    tag.name.toLowerCase().includes(options.search.toLowerCase()) && tag.id != 1 && tag.hidden == true ).map(tag => ({
+      alwaysVisible: false,
+      text: tag.name,
+      callback: t => deleteTag(tag.id, t, tag.name, action),
+    })
+  );
+
+  return tee.popup({
+    title: 'Теги',
+    items,
+    search: {
+      count: 15,
+      placeholder: 'Пошук...',
+      empty: 'Нема результатів'
+    }
+  });
+};
+
+const deleteTag = async (tagId, t, tagName, action) => {
+  t.alert({message: 'Видаляю тег', duration: 3});
+
+  memberName = await t.member('fullName');
+
+  await fetch(action + `?tagId=${tagId}&memberName=${memberName.fullName}&tagName=${tagName}`);
+  tags = await getTags();
+
+  t.closePopup();
+};
 
 const badgeChangeTagCallback = (tee) => {
   const items = (_, options) => {
