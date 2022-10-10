@@ -64,8 +64,8 @@ fetch(GET_TAGS_URL)
             dynamic: () => getTagForCard(id, t),
           },
           {
-            title: "Змінити тег",
-            text: "Дії",
+            title: "Дії",
+            text: "  🍔",
             color: "grey",
             callback: (tee) => actionsWithTags(tee),
           },
