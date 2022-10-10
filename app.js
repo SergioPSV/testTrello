@@ -63,20 +63,8 @@ fetch(GET_TAGS_URL)
             dynamic: () => getTagForCard(id, t),
           },
           {
-            title: "Світ змінюється",
-            text: "І тег зміню",
-            color: "blue",
-            callback: (tee) => badgeChangeTagCallback(tee),
-          },
-          {
-            title: "Щось сховати? 🥷",
-            text: "Хочу обрати",
-            color: "blue",
-            callback: (tee) => badgeHiddenTagsCallback(tee, false, HIDE_TAG),
-          },
-          {
-            title: "Потаємне 🤫",
-            text: "Показати",
+            title: "Змінити тег",
+            text: "Дії",
             color: "grey",
             callback: (tee) => actionsWithTags(tee),
           },
@@ -136,16 +124,16 @@ const actionsWithTags = async (t, opts) =>  {
   return t.popup({
     title: 'Дії з тегами',
     items: [{
-      text: 'Редагувати',
+      text: 'Редагувати 🛠',
       callback: (tee) => badgeChangeTagCallback(tee)
     }, {
-      text: 'Приховати',
+      text: 'Приховати 🥷',
       callback: (tee) => badgeHiddenTagsCallback(tee, false, HIDE_TAG)
     }, {
-      text: 'Знову показати',
+      text: 'Знову показати 🤫',
       callback: (tee) => badgeHiddenTagsCallback(tee, true, UNHIDE_TAG)
     }, {
-      text: 'Видалити',
+      text: 'Видалити ❌',
       callback: (tee) => badgeHiddenTagsCallback(tee, true, UNHIDE_TAG)
     }]
   });
