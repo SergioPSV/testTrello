@@ -77,8 +77,8 @@ fetch(GET_TAGS_URL)
           {
             title: "Потаємне 🤫",
             text: "Показати",
-            color: "blue",
-            callback: (tee) => badgeHiddenTagsCallback(tee, true, UNHIDE_TAG),
+            color: "grey",
+            callback: (tee) => actionsWithTags(tee),
           },
         ])),
     });
@@ -132,6 +132,25 @@ const saveTagForCard = async (tagName, cardId, t) => {
   t.closePopup();
 };
 
+const actionsWithTags = async (t, opts) =>  {
+  return t.popup({
+    title: 'Дії з тегами',
+    items: [{
+      text: 'Редагувати',
+      callback: (tee) => badgeChangeTagCallback(tee)
+    }, {
+      text: 'Приховати',
+      callback: (tee) => badgeHiddenTagsCallback(tee, false, HIDE_TAG)
+    }, {
+      text: 'Знову показати',
+      callback: (tee) => badgeHiddenTagsCallback(tee, true, UNHIDE_TAG)
+    }, {
+      text: 'Видалити',
+      callback: (tee) => badgeHiddenTagsCallback(tee, true, UNHIDE_TAG)
+    }]
+  });
+};
+
 const badgeClickCallback = (tee, cardId) => {
   const createTagCallback = (t, message) => t.popup({
     type: 'confirm',
@@ -145,7 +164,10 @@ const badgeClickCallback = (tee, cardId) => {
   const confirmNewTag = async (t, tagName) => {
     t.alert({message: 'Зберігаю його для тебе ❤️', duration: 2});
 
-    await fetch(CREATE_TAG + `?name=${tagName}`);
+    memberName = await t.member('fullName');
+    console.log(`${memberName.fullName} CREATE "${tagName}"`);
+
+    await fetch(CREATE_TAG + `?name=${tagName}&memberName=${memberName.fullName}`);
     tags = await getTags();
 
     findIdTag = tags.find( tag => tag.name == tagName);
@@ -249,7 +271,10 @@ const badgeChangeTagCallback = (tee) => {
   const changeTagName = async (t, newTagName, tagId) => {
     t.alert({message: `Вже змінюю...`, duration: 2});
 
-    await fetch(MODIFY_TAG + `?tagId=${tagId}&name=${newTagName}`);
+    memberName = await t.member('fullName');
+    console.log(`${memberName.fullName} UPDATE "${newTagName}" (${tagId})`);
+
+    await fetch(MODIFY_TAG + `?tagId=${tagId}&name=${newTagName}&memberName=${memberName.fullName}`);
     tags = await getTags();
 
     t.closePopup();
