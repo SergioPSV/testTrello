@@ -65,7 +65,7 @@ fetch(GET_TAGS_URL)
           },
           {
             title: " Дії",
-            text: "🍔",
+            text: "⚙️",
             color: "grey",
             callback: (tee) => actionsWithTags(tee),
           },
