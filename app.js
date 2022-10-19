@@ -7,7 +7,7 @@ const HIDE_TAG = 'https://us-central1-trello-tags.cloudfunctions.net/hideTag';
 const UNHIDE_TAG = 'https://us-central1-trello-tags.cloudfunctions.net/unhideTag';
 const MODIFY_TAG = 'https://us-central1-trello-tags.cloudfunctions.net/modifyTag';
 const DELETE_TAG = 'https://us-central1-trello-tags.cloudfunctions.net/deleteTag';
-const DEFAULT_TAG = 'Обрати тег';
+const DEFAULT_TAG = '🏷 Choose tag';
 
 let tags = [];
 let currentTag = '';
@@ -26,7 +26,7 @@ fetch(GET_TAGS_URL)
   .then( async (data) => {
 
     tags = data;
-    tags.unshift({ name: 'Видалити тег', id: 1, hidden: false });
+    tags.unshift({ name: '🧽 Revoke tag', id: 1, hidden: false });
 
     window.TrelloPowerUp.initialize({
       "card-badges": function (t, opts) {
@@ -64,7 +64,7 @@ fetch(GET_TAGS_URL)
             dynamic: () => getTagForCard(id, t),
           },
           {
-            title: "⁠⁠⁠",
+            title: "⁠",
             text: "⚙️ Change tag",
             color: "grey",
             callback: (tee) => actionsWithTags(tee),
@@ -98,7 +98,7 @@ const getTagForCard = (cardId, t) => new Promise(async resolve => {
   t.hideAlert()
 
   resolve({
-    title: 'Тег проблеми',
+    title: '⁠',
     text: currentTag,
     color: "yellow",
     refresh: 10,
@@ -107,7 +107,7 @@ const getTagForCard = (cardId, t) => new Promise(async resolve => {
 });
 
 const saveTagForCard = async (tagName, cardId, t) => {
-  t.alert({message: 'Кріплю тег до тікету...', duration: 10});
+  t.alert({message: 'Attach tag...', duration: 10});
 
   const {id:tagId} = tags.find(t => t.name === tagName);
   if (tagId === 1) {
@@ -123,18 +123,18 @@ const saveTagForCard = async (tagName, cardId, t) => {
 
 const actionsWithTags = async (t, opts) =>  {
   return t.popup({
-    title: 'Дії з тегами',
+    title: 'Operations',
     items: [{
-      text: 'Редагувати 🛠',
+      text: '✏️ Edit',
       callback: (tee) => badgeChangeTagCallback(tee)
     }, {
-      text: 'Приховати 🥷',
+      text: '🥷 Hide',
       callback: (tee) => badgeHiddenTagsCallback(tee, false, HIDE_TAG)
     }, {
-      text: 'Знову показати 🤫',
+      text: '🔦 Show',
       callback: (tee) => badgeHiddenTagsCallback(tee, true, UNHIDE_TAG)
     }, {
-      text: 'Видалити ❌',
+      text: '❌ Delete',
       callback: (tee) => badgeDeleteTagsCallback(tee, DELETE_TAG)
     }]
   });
@@ -143,15 +143,15 @@ const actionsWithTags = async (t, opts) =>  {
 const badgeClickCallback = (tee, cardId) => {
   const createTagCallback = (t, message) => t.popup({
     type: 'confirm',
-    title: "Створити тег?",
+    title: "Create tag?",
     message: message,
-    confirmText: "Так!",
+    confirmText: "Yes!",
     onConfirm: t => confirmNewTag(t, message),
     confirmStyle: 'primary',
   });
 
   const confirmNewTag = async (t, tagName) => {
-    t.alert({message: 'Зберігаю його для тебе ❤️', duration: 2});
+    t.alert({message: 'I save it for you ❤️', duration: 2});
 
     memberName = await t.member('fullName');
     console.log(`${memberName.fullName} CREATE "${tagName}"`);
@@ -180,12 +180,12 @@ const badgeClickCallback = (tee, cardId) => {
   };
 
   return tee.popup({
-    title: 'Теги проблем',
+    title: 'Problem tags',
     items,
     search: {
       count: 10,
-      placeholder: 'Пошук...',
-      empty: 'Цей тег потрібно створити'
+      placeholder: 'Search...',
+      empty: 'This tag needs to be created'
     }
   });
 };
@@ -201,18 +201,18 @@ const badgeHiddenTagsCallback = (tee, rule, action) => {
   );
 
   return tee.popup({
-    title: 'Теги проблем',
+    title: 'Problem tags',
     items,
     search: {
       count: 10,
-      placeholder: 'Пошук...',
-      empty: 'Нема результатів'
+      placeholder: 'Search...',
+      empty: 'No results'
     }
   });
 };
 
 const hideOrUnhideTag = async (tagId, t, tagName, action) => {
-  t.alert({message: 'Ховаю/Показую тег', duration: 3});
+  t.alert({message: 'Hide/Show tag', duration: 3});
 
   memberName = await t.member('fullName');
 
@@ -236,18 +236,18 @@ const badgeDeleteTagsCallback = (tee, action) => {
   );
 
   return tee.popup({
-    title: 'Теги',
+    title: 'Problem tags',
     items,
     search: {
       count: 15,
-      placeholder: 'Пошук...',
-      empty: 'Нема результатів'
+      placeholder: 'Search...',
+      empty: 'No results'
     }
   });
 };
 
 const deleteTag = async (tagId, t, tagName, action) => {
-  t.alert({message: 'Видаляю тег', duration: 3});
+  t.alert({message: 'Deleting tag', duration: 3});
 
   memberName = await t.member('fullName');
 
@@ -273,40 +273,40 @@ const badgeChangeTagCallback = (tee) => {
       return [{
         alwaysVisible: true,
         text: options.search,
-        callback: t => changeTagName(t, options.search, tagId),
+        callback: t => changeTagName(t, options.search, tagId, tagName),
       }]
     };
 
     return tee.popup({
-      title: 'Редагувати тег',
+      title: '✏️ Edit',
       items,
       search: {
         count: 5,
-        placeholder: 'Введи нове імʼя',
-        empty: `Змінити тег "${tagName}" на:`
+        placeholder: 'Enter new name',
+        empty: `Edit tag "${tagName}" to:`
       }
     });
   };
 
-  const changeTagName = async (t, newTagName, tagId) => {
-    t.alert({message: `Вже змінюю...`, duration: 2});
+  const changeTagName = async (t, newTagName, tagId, tagName) => {
+    t.alert({message: `Changing tag...`, duration: 2});
 
     memberName = await t.member('fullName');
     console.log(`${memberName.fullName} UPDATE "${newTagName}" (${tagId})`);
 
-    await fetch(MODIFY_TAG + `?tagId=${tagId}&name=${newTagName}&memberName=${memberName.fullName}`);
+    await fetch(MODIFY_TAG + `?tagId=${tagId}&name=${newTagName}&memberName=${memberName.fullName}&previousName=${tagName}`);
     tags = await getTags();
 
     t.closePopup();
   };
 
   return tee.popup({
-    title: 'Теги проблем',
+    title: 'Problem tags',
     items,
     search: {
       count: 5,
-      placeholder: 'Пошук...',
-      empty: 'Нічого не знайдено'
+      placeholder: 'Search...',
+      empty: 'No results'
     }
   });
 };
