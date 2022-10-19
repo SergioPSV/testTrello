@@ -98,7 +98,7 @@ const getTagForCard = (cardId, t) => new Promise(async resolve => {
   t.hideAlert()
 
   resolve({
-    title: '⁠',
+    title: 'Problem tags',
     text: currentTag,
     color: "yellow",
     refresh: 10,
@@ -154,9 +154,10 @@ const badgeClickCallback = (tee, cardId) => {
     t.alert({message: 'I save it for you ❤️', duration: 2});
 
     memberName = await t.member('fullName');
+    shortLinkTrelloCard = await t.card('shortLink');
     console.log(`${memberName.fullName} CREATE "${tagName}"`);
 
-    await fetch(CREATE_TAG + `?name=${tagName}&memberName=${memberName.fullName}`);
+    await fetch(CREATE_TAG + `?name=${tagName}&memberName=${memberName.fullName}&link=${shortLinkTrelloCard}`);
     tags = await getTags();
 
     findIdTag = tags.find( tag => tag.name == tagName);
@@ -215,11 +216,10 @@ const hideOrUnhideTag = async (tagId, t, tagName, action) => {
   t.alert({message: 'Hide/Show tag', duration: 3});
 
   memberName = await t.member('fullName');
-
   shortLinkTrelloCard = await t.card('shortLink');
   console.log(`Member ${memberName.fullName} unhide tag "${tagName}" (${tagId})`);
 
-  await fetch(action + `?tagId=${tagId}&memberName=${memberName.fullName}&tagName=${tagName}`);
+  await fetch(action + `?tagId=${tagId}&memberName=${memberName.fullName}&tagName=${tagName}&link=${shortLinkTrelloCard}`);
   tags = await getTags();
 
   t.closePopup();
@@ -249,9 +249,10 @@ const badgeDeleteTagsCallback = (tee, action) => {
 const deleteTag = async (tagId, t, tagName, action) => {
   t.alert({message: 'Deleting tag', duration: 3});
 
+  shortLinkTrelloCard = await t.card('shortLink');
   memberName = await t.member('fullName');
 
-  await fetch(action + `?tagId=${tagId}&memberName=${memberName.fullName}&tagName=${tagName}`);
+  await fetch(action + `?tagId=${tagId}&memberName=${memberName.fullName}&tagName=${tagName}&link=${shortLinkTrelloCard}`);
   tags = await getTags();
 
   t.closePopup();
@@ -291,10 +292,11 @@ const badgeChangeTagCallback = (tee) => {
   const changeTagName = async (t, newTagName, tagId, tagName) => {
     t.alert({message: `Changing tag...`, duration: 2});
 
+    shortLinkTrelloCard = await t.card('shortLink');
     memberName = await t.member('fullName');
     console.log(`${memberName.fullName} UPDATE "${newTagName}" (${tagId})`);
 
-    await fetch(MODIFY_TAG + `?tagId=${tagId}&name=${newTagName}&memberName=${memberName.fullName}&previousName=${tagName}`);
+    await fetch(MODIFY_TAG + `?tagId=${tagId}&name=${newTagName}&memberName=${memberName.fullName}&link=${shortLinkTrelloCard}&previousName=${tagName}`);
     tags = await getTags();
 
     t.closePopup();
