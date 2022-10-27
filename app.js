@@ -217,7 +217,7 @@ const hideOrUnhideTag = async (tagId, t, tagName, action) => {
 
   memberName = await t.member('fullName');
   shortLinkTrelloCard = await t.card('shortLink');
-  console.log(`Member ${memberName.fullName} unhide tag "${tagName}" (${tagId})`);
+  console.log(`${memberName.fullName} UPDATE "${newTagName}" (${tagId}) ${shortLinkTrelloCard}`);
 
   await fetch(action + `?tagId=${tagId}&memberName=${memberName.fullName}&tagName=${tagName}&link=${shortLinkTrelloCard}`);
   tags = await getTags();
@@ -294,7 +294,7 @@ const badgeChangeTagCallback = (tee) => {
 
     shortLinkTrelloCard = await t.card('shortLink');
     memberName = await t.member('fullName');
-    console.log(`${memberName.fullName} UPDATE "${newTagName}" (${tagId})`);
+    console.log(`${memberName.fullName} UPDATE "${newTagName}" (${tagId}) ${shortLinkTrelloCard}`);
 
     await fetch(MODIFY_TAG + `?tagId=${tagId}&name=${newTagName}&memberName=${memberName.fullName}&link=${shortLinkTrelloCard}&previousName=${tagName}`);
     tags = await getTags();
