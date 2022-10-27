@@ -217,7 +217,7 @@ const hideOrUnhideTag = async (tagId, t, tagName, action) => {
 
   memberName = await t.member('fullName');
   shortLinkTrelloCard = await t.card('shortLink');
-  console.log(`${memberName.fullName} ${shortLinkTrelloCard}`);
+  console.log(`${memberName.fullName} ${shortLinkTrelloCard.shortLink}`);
 
   await fetch(action + `?tagId=${tagId}&memberName=${memberName.fullName}&tagName=${tagName}&link=${shortLinkTrelloCard}`);
   tags = await getTags();
