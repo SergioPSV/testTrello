@@ -70,22 +70,9 @@ fetch(GET_TAGS_URL)
             callback: (tee) => actionsWithTags(tee),
           },
           {
-            // its best to use static badges unless you need your badges
-            // to refresh you can mix and match between static and dynamic
-            title: "Detail Badge",
-            text: "Static",
-            color: null,
-          },
-          {
-            // card detail badges (those that appear on the back of cards)
-            // also support callback functions so that you can open for example
-            // open a popup on click
-            title: "Popup Detail Badge",
-            text: "Popup",
-            callback: function (t, opts) {
-              // function to run on click
-              // do something
-            },
+            title: "",
+            text: "Language",
+            callback: (tee) => changeLanguage(tee),
           },
         ])),
     });
@@ -154,6 +141,22 @@ const actionsWithTags = async (t, opts) =>  {
     }, {
       text: '❌ Delete',
       callback: (tee) => badgeDeleteTagsCallback(tee, DELETE_TAG)
+    }]
+  });
+};
+
+const changeLanguage = async (t, opts) =>  {
+  return t.popup({
+    title: 'Languages',
+    items: [{
+      text: 'Ukrainian',
+      callback: (tee) => {}
+    }, {
+      text: 'English',
+      callback: (tee) => {}
+    }, {
+      text: 'Russian',
+      callback: (tee) => {}
     }]
   });
 };
