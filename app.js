@@ -344,6 +344,6 @@ const changeLanguageCallback = (tee, rule, action) => {
   //console.log(tee.member('id', 'fullName'));
   
     tee.alert({
-    message: personChangeLang.fullName
+    message: tee.member('id', 'fullName').fullName
   });
 };
