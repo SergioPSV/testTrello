@@ -339,5 +339,7 @@ const badgeChangeTagCallback = (tee) => {
 };
 
 const changeLanguageCallback = (tee, rule, action) => {
-  tee.alert({'Test'})
+    tee.alert({
+    message: 'Powering-Up, give us a second...'
+  });
 };
