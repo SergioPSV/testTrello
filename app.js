@@ -338,8 +338,8 @@ const badgeChangeTagCallback = (tee) => {
   });
 };
 
-const changeLanguageCallback = (tee, rule, action) => {
-  let personChangeLang = tee.member('id', 'fullName');
+const changeLanguageCallback = async (tee, rule, action) => {
+  let personChangeLang = await tee.member('id', 'fullName');
   
   console.log(personChangeLang.fullName);
   
