@@ -150,7 +150,7 @@ const changeLanguage = async (t, opts) =>  {
     title: 'Languages',
     items: [{
       text: 'Ukrainian',
-      callback: (tee) => {}
+      callback: (tee) => changeLanguageCallback(tee, 'ua')
     }, {
       text: 'English',
       callback: (tee) => {
@@ -160,7 +160,7 @@ const changeLanguage = async (t, opts) =>  {
       }
     }, {
       text: 'Russian',
-      callback: (tee) => {}
+      callback: (tee) => changeLanguageCallback(tee, 'ru')
     }]
   });
 };
@@ -336,4 +336,8 @@ const badgeChangeTagCallback = (tee) => {
       empty: 'No results'
     }
   });
+};
+
+const changeLanguageCallback = (tee, rule, action) => {
+  tee.alert({'Test'})
 };
