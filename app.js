@@ -155,7 +155,7 @@ const changeLanguage = async (t, opts) =>  {
       text: 'English',
       callback: (tee) => {
         tee.alert({
-          message: tee.member('id', 'fullName')
+          message: 'Test'
         });
       }
     }, {
