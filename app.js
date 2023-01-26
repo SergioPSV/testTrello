@@ -2,6 +2,7 @@ const GET_TAG_URL = 'https://us-central1-trello-tags.cloudfunctions.net/getTagBy
 const DELETE_TAG_URL = 'https://us-central1-trello-tags.cloudfunctions.net/deleteTagCard';
 const SAVE_TAG_URL = 'https://us-central1-trello-tags.cloudfunctions.net/saveTagCard';
 const GET_TAGS_URL = 'https://us-central1-trello-tags.cloudfunctions.net/getTags';
+const GET_SELECTED_LANGUAGES_URL = 'https://us-central1-trello-tags.cloudfunctions.net/getSelectedLanguages';
 const CREATE_TAG = 'https://us-central1-trello-tags.cloudfunctions.net/createTag';
 const HIDE_TAG = 'https://us-central1-trello-tags.cloudfunctions.net/hideTag';
 const UNHIDE_TAG = 'https://us-central1-trello-tags.cloudfunctions.net/unhideTag';
@@ -10,6 +11,7 @@ const DELETE_TAG = 'https://us-central1-trello-tags.cloudfunctions.net/deleteTag
 const DEFAULT_TAG = '🏷 Choose tag';
 
 let tags = [];
+let selectedLanguages = [];
 let currentTag = '';
 let currentCardId = '';
 let findIdTag = '';
@@ -27,6 +29,7 @@ fetch(GET_TAGS_URL)
 
     tags = data;
     tags.unshift({ name: '🧽 Revoke tag', id: 1, hidden: false });
+    selectedLanguages = await fetch(GET_SELECTED_LANGUAGES_URL).json();
 
     window.TrelloPowerUp.initialize({
       "card-badges": function (t, opts) {
@@ -38,13 +41,14 @@ fetch(GET_TAGS_URL)
               {
                 dynamic: async () => {
                   let findCard = await fetch(GET_TAG_URL + cardId);
+                  let namePerson = await t.member('id');
                   let tagInCard = '';
 
                   if (findCard.ok) {
                     const { errorCode, tagId } = await findCard.json();
                     
-                    let namePerson = await t.member('fullName');
-                    console.log(tags.find(t => t.id === tagId), namePerson);
+                    console.log(selectedLanguages)
+                    
                     
                     tagInCard = (!errorCode && namePerson.fullName == 'Serhiy Parkhomenko') ? tags.find(t => t.id === tagId).nameUA : !errorCode ? tags.find(t => t.id === tagId).name : "Need tag";
                   } else {
