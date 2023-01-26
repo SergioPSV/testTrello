@@ -345,7 +345,7 @@ const badgeChangeTagCallback = (tee) => {
 const changeLanguageCallback = async (tee, rule, action) => {
   let personChangeLang = await tee.member('id', 'fullName');
   
-  console.log(personChangeLang.fullName);
+  console.log(personChangeLang.fullName, personChangeLang.id);
   
     tee.alert({
     message: personChangeLang.fullName
