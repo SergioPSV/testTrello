@@ -50,7 +50,7 @@ fetch(GET_TAGS_URL)
                     console.log(memberLanguage.lang)
                     
                     
-                    tagInCard = (!errorCode && namePerson.fullName == 'Serhiy Parkhomenko') ? tags.find(t => t.id === tagId).nameUA : !errorCode ? tags.find(t => t.id === tagId).name : "Need tag";
+                    tagInCard = (!errorCode && memberLanguage) ? tags.find(t => t.id === tagId)[memberLanguage.lang] : !errorCode ? tags.find(t => t.id === tagId).name : "Need tag";
                   } else {
                     console.log("HTTP error: " + response.status);
                   }
