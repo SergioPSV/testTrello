@@ -42,8 +42,11 @@ fetch(GET_TAGS_URL)
 
                   if (findCard.ok) {
                     const { errorCode, tagId } = await findCard.json();
-                    console.log(tags.find(t => t.id === tagId));
-                    tagInCard = !errorCode ? tags.find(t => t.id === tagId).name : "Need tag";
+                    
+                    let namePerson = await t.member('fullName');
+                    console.log(tags.find(t => t.id === tagId), namePerson);
+                    
+                    tagInCard = (!errorCode && namePerson.fullName == 'Serhiy Parkhomenko') ? tags.find(t => t.id === tagId).nameUA : !errorCode ? tags.find(t => t.id === tagId).name : "Need tag";
                   } else {
                     console.log("HTTP error: " + response.status);
                   }
