@@ -41,13 +41,13 @@ fetch(GET_TAGS_URL)
               {
                 dynamic: async () => {
                   let findCard = await fetch(GET_TAG_URL + cardId);
-                  let namePerson = await t.member('id');
+                  let idPerson = await t.member('id');
                   let tagInCard = '';
 
                   if (findCard.ok) {
                     const { errorCode, tagId } = await findCard.json();
-                    
-                    console.log(selectedLanguages)
+                    let memberLanguage = selectedLanguages.find( member => member.id == idPerson.id)
+                    console.log(memberLanguage.lang)
                     
                     
                     tagInCard = (!errorCode && namePerson.fullName == 'Serhiy Parkhomenko') ? tags.find(t => t.id === tagId).nameUA : !errorCode ? tags.find(t => t.id === tagId).name : "Need tag";
