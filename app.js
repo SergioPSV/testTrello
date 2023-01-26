@@ -344,6 +344,6 @@ const changeLanguageCallback = async (tee, rule, action) => {
   console.log(personChangeLang.fullName);
   
     tee.alert({
-    message: 'Done'
+    message: personChangeLang.fullName
   });
 };
