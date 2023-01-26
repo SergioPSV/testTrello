@@ -29,7 +29,7 @@ fetch(GET_TAGS_URL)
 
     tags = data;
     tags.unshift({ name: '🧽 Revoke tag', id: 1, hidden: false });
-    selectedLanguages = await fetch(GET_SELECTED_LANGUAGES_URL).json();
+    selectedLanguages = await fetch(GET_SELECTED_LANGUAGES_URL).then((response) => response.json());
 
     window.TrelloPowerUp.initialize({
       "card-badges": function (t, opts) {
