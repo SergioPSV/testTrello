@@ -86,7 +86,7 @@ fetch(GET_TAGS_URL)
   });
 
 const getTagForCard = (cardId, t) => new Promise(async resolve => {
-  let person = t.member('id');
+  let person = await t.member('id');
   console.log('cardId', cardId, person.id);
 
   if (!currentTag || currentCardId !== cardId) {
