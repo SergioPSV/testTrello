@@ -201,7 +201,9 @@ const badgeClickCallback = (tee, cardId) => {
     const personId = await tee.member('id');
     let memberLanguage = selectedLanguages.find( member => member.id == personId.id)
     
-    console.log({tag[memberLanguage.lang], memberLanguage});
+    console.log(personId);
+    
+    console.log({memberLanguage});
     
     let searchTags = tags.filter(tag =>
       tag.name.toLowerCase().includes(options.search.toLowerCase()) || tag[memberLanguage.lang].toLowerCase().includes(options.search) && !tag.hidden || tag.id === 1).map(tag => ({
