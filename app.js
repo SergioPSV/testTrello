@@ -198,10 +198,13 @@ const badgeClickCallback = (tee, cardId) => {
   };
 
   const items = (_, options) => {
+    const personId = tee.member('id');
+    let memberLanguage = selectedLanguages.find( member => member.id == idPerson.id)
+    
     let searchTags = tags.filter(tag =>
-      tag.name.toLowerCase().includes(options.search.toLowerCase()) && !tag.hidden || tag.id === 1).map(tag => ({
+      tag.name.toLowerCase().includes(options.search.toLowerCase()) || tag[memberLanguage.lang].toLowerCase().includes(options[0].search) && !tag.hidden || tag.id === 1).map(tag => ({
         alwaysVisible: tag.id === 1,
-        text: tag.name,
+        text: tag[memberLanguage.lang] ? tag[memberLanguage.lang] : tag.name,
         callback: t => saveTagForCard(tag.name, cardId, t),
       })
     );
