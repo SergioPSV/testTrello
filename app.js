@@ -49,7 +49,6 @@ fetch(GET_TAGS_URL)
                     let memberLanguage = selectedLanguages.find( member => member.id == idPerson.id)
                     console.log(memberLanguage.lang)
                     
-                    
                     tagInCard = (!errorCode && memberLanguage) ? tags.find(t => t.id === tagId)[memberLanguage.lang] : !errorCode ? tags.find(t => t.id === tagId).name : "Need tag";
                   } else {
                     console.log("HTTP error: " + response.status);
@@ -87,7 +86,8 @@ fetch(GET_TAGS_URL)
   });
 
 const getTagForCard = (cardId, t) => new Promise(async resolve => {
-  console.log('cardId', cardId);
+  let person = t.member('id');
+  console.log('cardId', cardId, person.id);
 
   if (!currentTag || currentCardId !== cardId) {
     let response = await fetch(GET_TAG_URL + cardId);
@@ -174,9 +174,7 @@ const changeLanguage = async (t, opts) =>  {
 };
 
 const badgeClickCallback = (tee, cardId) => {
-  //const personId = await tee.member('id');
-  console.log(idPerson.id);
-  let memberLanguage = selectedLanguages.find( member => member.id === idPerson.id);
+  //let memberLanguage = selectedLanguages.find( member => member.id === idPerson.id);
   
   const createTagCallback = (t, message) => t.popup({
     type: 'confirm',
