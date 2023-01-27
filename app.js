@@ -174,6 +174,9 @@ const changeLanguage = async (t, opts) =>  {
 };
 
 const badgeClickCallback = (tee, cardId) => {
+  const personId = await tee.member('id');
+  let memberLanguage = selectedLanguages.find( member => member.id === personId.id);
+  
   const createTagCallback = (t, message) => t.popup({
     type: 'confirm',
     title: "Create tag?",
@@ -198,11 +201,7 @@ const badgeClickCallback = (tee, cardId) => {
   };
 
   const items = async (_, options) => {
-    const personId = await tee.member('id');
-    let memberLanguage = selectedLanguages.find( member => member.id == personId.id)
-    
     console.log(personId);
-    
     console.log({memberLanguage});
     
     let searchTags = tags.filter(tag =>
