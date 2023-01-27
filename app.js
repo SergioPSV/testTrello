@@ -174,8 +174,8 @@ const changeLanguage = async (t, opts) =>  {
 };
 
 const badgeClickCallback = (tee, cardId) => {
-  console.log(tee.member('id'));
-//   const personId = await tee.member('id');
+  const personId = await tee.member('id');
+  console.log(personId.id);
 //   let memberLanguage = selectedLanguages.find( member => member.id === personId.id);
   
   const createTagCallback = (t, message) => t.popup({
