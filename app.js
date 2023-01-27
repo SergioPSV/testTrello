@@ -174,6 +174,7 @@ const changeLanguage = async (t, opts) =>  {
 };
 
 const badgeClickCallback = (tee, cardId) => {
+  console.log(tee.member('id'));
 //   const personId = await tee.member('id');
 //   let memberLanguage = selectedLanguages.find( member => member.id === personId.id);
   
