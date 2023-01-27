@@ -86,8 +86,8 @@ fetch(GET_TAGS_URL)
   });
 
 const getTagForCard = (cardId, t) => new Promise(async resolve => {
-  let person = await t.member('id');
-  console.log('cardId', cardId, person.id);
+  let personId = await t.member('id');
+  console.log('cardId', cardId);
 
   if (!currentTag || currentCardId !== cardId) {
     let response = await fetch(GET_TAG_URL + cardId);
@@ -115,7 +115,7 @@ const getTagForCard = (cardId, t) => new Promise(async resolve => {
     text: currentTag,
     color: "yellow",
     refresh: 10,
-    callback: (tee) => badgeClickCallback(tee, cardId),
+    callback: (tee) => badgeClickCallback(tee, cardId, personId),
   })
 });
 
@@ -173,8 +173,8 @@ const changeLanguage = async (t, opts) =>  {
   });
 };
 
-const badgeClickCallback = (tee, cardId) => {
-  //let memberLanguage = selectedLanguages.find( member => member.id === idPerson.id);
+const badgeClickCallback = (tee, cardId, personId) => {
+  let memberLanguage = selectedLanguages.find( member => member.id === personId.id);
   
   const createTagCallback = (t, message) => t.popup({
     type: 'confirm',
