@@ -87,6 +87,7 @@ fetch(GET_TAGS_URL)
 
 const getTagForCard = (cardId, t) => new Promise(async resolve => {
   let personId = await t.member('id');
+  let memberLanguage = selectedLanguages.find( member => member.id == personId.id)
   console.log('cardId', cardId);
 
   if (!currentTag || currentCardId !== cardId) {
@@ -99,7 +100,7 @@ const getTagForCard = (cardId, t) => new Promise(async resolve => {
       if (tagInCard && tagInCard.hidden) {
         currentTag = !errorCode ? '🙈 ' + tagInCard.name : DEFAULT_TAG;
       } else {
-        currentTag = !errorCode ? tagInCard.name : DEFAULT_TAG;
+        currentTag = !errorCode ? tagInCard[memberLanguage.lang] || tagInCard.name : DEFAULT_TAG;
       }
     } else {
       console.log("HTTP error: " + response.status);
