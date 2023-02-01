@@ -197,9 +197,10 @@ const badgeClickCallback = (tee, cardId, personId) => {
   };
 
   const items = async (_, options) => {
+    let searchTags;
     
     if (memberLanguage) {
-      let searchTags = tags.filter(tag =>
+      searchTags = tags.filter(tag =>
         tag.name.toLowerCase().includes(options.search.toLowerCase()) && !tag.hidden || tag.id === 1 || (tag[memberLanguage.lang].toLowerCase().includes(options.search.toLowerCase()) && !tag.hidden) ).map(tag => ({
           alwaysVisible: tag.id === 1,
           text: tag[memberLanguage.lang] ? tag[memberLanguage.lang] : tag.name,
@@ -207,7 +208,7 @@ const badgeClickCallback = (tee, cardId, personId) => {
         })
       );
     } else {
-      let searchTags = tags.filter(tag =>
+      searchTags = tags.filter(tag =>
         tag.name.toLowerCase().includes(options.search.toLowerCase()) && !tag.hidden || tag.id === 1).map(tag => ({
           alwaysVisible: tag.id === 1,
           text: tag.name,
