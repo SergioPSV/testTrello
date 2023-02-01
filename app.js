@@ -348,7 +348,7 @@ const badgeChangeTagCallback = (tee) => {
 const changeLanguageCallback = async (tee, language) => {
   let personChangeLang = await tee.member('id', 'fullName');
   
-  await fetch(SAVE_MEMBER_LANGUAGE + `?memberId=${personChangeLang.id}&memberName=${personChangeLang.fullName}&language=${language}`);
+  //await fetch(SAVE_MEMBER_LANGUAGE + `?memberId=${personChangeLang.id}&memberName=${personChangeLang.fullName}&language=${language}`);
   
   console.log(personChangeLang.fullName, personChangeLang.id, language);
   
