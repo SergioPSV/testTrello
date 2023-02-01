@@ -163,11 +163,7 @@ const changeLanguage = async (t, opts) =>  {
       callback: (tee) => changeLanguageCallback(tee, 'nameUA')
     }, {
       text: 'English',
-      callback: (tee) => {
-        tee.alert({
-          message: (tee) => changeLanguageCallback(tee, 'name')
-        });
-      }
+      callback: (tee) => changeLanguageCallback(tee, 'name')
     }, {
       text: 'Russian',
       callback: (tee) => changeLanguageCallback(tee, 'nameEN')
