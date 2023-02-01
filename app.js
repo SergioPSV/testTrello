@@ -3,6 +3,7 @@ const DELETE_TAG_URL = 'https://us-central1-trello-tags.cloudfunctions.net/delet
 const SAVE_TAG_URL = 'https://us-central1-trello-tags.cloudfunctions.net/saveTagCard';
 const GET_TAGS_URL = 'https://us-central1-trello-tags.cloudfunctions.net/getTags';
 const GET_SELECTED_LANGUAGES_URL = 'https://us-central1-trello-tags.cloudfunctions.net/getSelectedLanguages';
+const SAVE_MEMBER_LANGUAGE = 'https://us-central1-trello-tags.cloudfunctions.net/saveMemberLanguage';
 const CREATE_TAG = 'https://us-central1-trello-tags.cloudfunctions.net/createTag';
 const HIDE_TAG = 'https://us-central1-trello-tags.cloudfunctions.net/hideTag';
 const UNHIDE_TAG = 'https://us-central1-trello-tags.cloudfunctions.net/unhideTag';
@@ -159,17 +160,17 @@ const changeLanguage = async (t, opts) =>  {
     title: 'Languages',
     items: [{
       text: 'Ukrainian',
-      callback: (tee) => changeLanguageCallback(tee, 'ua')
+      callback: (tee) => changeLanguageCallback(tee, 'nameUA')
     }, {
       text: 'English',
       callback: (tee) => {
         tee.alert({
-          message: 'Test'
+          message: (tee) => changeLanguageCallback(tee, 'name')
         });
       }
     }, {
       text: 'Russian',
-      callback: (tee) => changeLanguageCallback(tee, 'ru')
+      callback: (tee) => changeLanguageCallback(tee, 'nameEN')
     }]
   });
 };
@@ -191,7 +192,6 @@ const badgeClickCallback = (tee, cardId, personId) => {
 
     memberName = await t.member('fullName');
     shortLinkTrelloCard = await t.card('shortLink');
-    console.log(`${memberName.fullName} CREATE "${tagName}"`);
 
     await fetch(CREATE_TAG + `?name=${tagName}&memberName=${memberName.fullName}&link=${shortLinkTrelloCard}`);
     tags = await getTags();
@@ -201,8 +201,6 @@ const badgeClickCallback = (tee, cardId, personId) => {
   };
 
   const items = async (_, options) => {
-    console.log(personId);
-    console.log({memberLanguage});
     
     let searchTags = tags.filter(tag =>
       tag.name.toLowerCase().includes(options.search.toLowerCase()) && !tag.hidden || tag.id === 1 || (tag[memberLanguage.lang].toLowerCase().includes(options.search.toLowerCase()) && !tag.hidden) ).map(tag => ({
@@ -256,7 +254,6 @@ const hideOrUnhideTag = async (tagId, t, tagName, action) => {
 
   memberName = await t.member('fullName');
   shortLinkTrelloCard = await t.card('shortLink');
-  console.log(`${memberName.fullName} ${shortLinkTrelloCard.shortLink}`);
 
   await fetch(action + `?tagId=${tagId}&memberName=${memberName.fullName}&tagName=${tagName}&link=${shortLinkTrelloCard}`);
   tags = await getTags();
@@ -352,12 +349,14 @@ const badgeChangeTagCallback = (tee) => {
   });
 };
 
-const changeLanguageCallback = async (tee, rule, action) => {
+const changeLanguageCallback = async (tee, language) => {
   let personChangeLang = await tee.member('id', 'fullName');
   
-  console.log(personChangeLang.fullName, personChangeLang.id);
+  await fetch(SAVE_MEMBER_LANGUAGE + `?memberId=${personChangeLang.id}&memberName=${personChangeLang.fullName}&language${language});
+  
+  console.log(personChangeLang.fullName, personChangeLang.id, language);
   
     tee.alert({
-    message: personChangeLang.fullName
+    message: "Language changed"
   });
 };
