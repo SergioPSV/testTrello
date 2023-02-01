@@ -163,10 +163,10 @@ const changeLanguage = async (t, opts) =>  {
       callback: (tee) => changeLanguageCallback(tee, 'nameUA')
     }, {
       text: 'English',
-      callback: (tee) => changeLanguageCallback(tee, 'name')
+      callback: (tee) => changeLanguageCallback(tee, 'nameEN')
     }, {
       text: 'Russian',
-      callback: (tee) => changeLanguageCallback(tee, 'nameEN')
+      callback: (tee) => changeLanguageCallback(tee, 'name')
     }]
   });
 };
@@ -198,13 +198,24 @@ const badgeClickCallback = (tee, cardId, personId) => {
 
   const items = async (_, options) => {
     
-    let searchTags = tags.filter(tag =>
-      tag.name.toLowerCase().includes(options.search.toLowerCase()) && !tag.hidden || tag.id === 1 || (tag[memberLanguage.lang].toLowerCase().includes(options.search.toLowerCase()) && !tag.hidden) ).map(tag => ({
-        alwaysVisible: tag.id === 1,
-        text: tag[memberLanguage.lang] ? tag[memberLanguage.lang] : tag.name,
-        callback: t => saveTagForCard(tag.name, cardId, t),
-      })
-    );
+    if (memberLanguage) {
+      let searchTags = tags.filter(tag =>
+        tag.name.toLowerCase().includes(options.search.toLowerCase()) && !tag.hidden || tag.id === 1 || (tag[memberLanguage.lang].toLowerCase().includes(options.search.toLowerCase()) && !tag.hidden) ).map(tag => ({
+          alwaysVisible: tag.id === 1,
+          text: tag[memberLanguage.lang] ? tag[memberLanguage.lang] : tag.name,
+          callback: t => saveTagForCard(tag.name, cardId, t),
+        })
+      );
+    } else {
+      let searchTags = tags.filter(tag =>
+        tag.name.toLowerCase().includes(options.search.toLowerCase()) && !tag.hidden || tag.id === 1).map(tag => ({
+          alwaysVisible: tag.id === 1,
+          text: tag.name,
+          callback: t => saveTagForCard(tag.name, cardId, t),
+        })
+      ); 
+    }
+    
 
     return searchTags.length == 1 ? [{
       alwaysVisible: true,
