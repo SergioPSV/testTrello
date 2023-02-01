@@ -356,5 +356,4 @@ const changeLanguageCallback = async (tee, language) => {
     message: "Language changed"
   });
   
-  tee.closePopup();
 };
