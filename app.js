@@ -48,7 +48,7 @@ fetch(GET_TAGS_URL)
                   if (findCard.ok) {
                     const { errorCode, tagId } = await findCard.json();
                     let memberLanguage = selectedLanguages.find( member => member.id == idPerson.id)
-                    console.log(memberLanguage.lang)
+                    console.log(memberLanguage)
                     
                     tagInCard = (!errorCode && memberLanguage) ? tags.find(t => t.id === tagId)[memberLanguage.lang] : !errorCode ? tags.find(t => t.id === tagId).name : "Need tag";
                   } else {
