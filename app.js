@@ -101,7 +101,7 @@ const getTagForCard = (cardId, t) => new Promise(async resolve => {
       if (tagInCard && tagInCard.hidden) {
         currentTag = !errorCode ? '🙈 ' + tagInCard.name : DEFAULT_TAG;
       } else {
-        currentTag = !errorCode ? tagInCard[memberLanguage.lang] || tagInCard.name : DEFAULT_TAG;
+        currentTag = !errorCode && memberLanguage ? tagInCard[memberLanguage.lang] : !errorCode ? tagInCard.name : DEFAULT_TAG;
       }
     } else {
       console.log("HTTP error: " + response.status);
