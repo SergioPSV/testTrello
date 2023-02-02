@@ -54,11 +54,11 @@ fetch(GET_TAGS_URL)
                   if (findCard.ok) {
                     const { errorCode, tagId } = await findCard.json();
                     let memberLanguage = selectedLanguages.find( member => member.id == idPerson.id)
+                    let tagsLanguages = tags.find(t => t.id === tagId);
                     console.log(memberLanguage)
-                    console.log((!errorCode && memberLanguage && memberLanguage.lang != '') ? 'Yes' : !errorCode ? 'No' : 'No2')
-                    console.log({memberLanguage.lang});
+                    console.log((!errorCode && memberLanguage && tagsLanguages[memberLanguage.lang] != '') ? 'Yes' : !errorCode ? 'No' : 'No2')
                     
-                    tagInCard = (!errorCode && memberLanguage && memberLanguage.lang != '') ? tags.find(t => t.id === tagId)[memberLanguage.lang] : !errorCode ? tags.find(t => t.id === tagId).name : "Need tag";
+                    tagInCard = (!errorCode && memberLanguage && tagsLanguages[memberLanguage.lang] != '') ? tags.find(t => t.id === tagId)[memberLanguage.lang] : !errorCode ? tags.find(t => t.id === tagId).name : "Need tag";
                   } else {
                     console.log("HTTP error: " + response.status);
                   }
