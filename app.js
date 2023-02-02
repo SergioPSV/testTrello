@@ -208,7 +208,7 @@ const badgeClickCallback = (tee, cardId, personId) => {
         tag.name.toLowerCase().includes(options.search.toLowerCase()) && !tag.hidden || tag.id === 1 || (tag[memberLanguage.lang].toLowerCase().includes(options.search.toLowerCase()) && !tag.hidden) ).map(tag => ({
           alwaysVisible: tag.id === 1,
           text: tag[memberLanguage.lang] ? tag[memberLanguage.lang] : tag.name,
-          callback: t => saveTagForCard(tag.name, cardId, t),
+          callback: t => saveTagForCard(tag[memberLanguage.lang] ? tag[memberLanguage.lang] : tag.name, cardId, t),
         })
       );
     } else {
