@@ -35,7 +35,6 @@ fetch(GET_TAGS_URL)
     window.TrelloPowerUp.initialize({
       'card-buttons': function (t, opts) {
         return [{
-          icon: GRAY_ICON,
           text: 'Snooze',
           callback: (tee) => changeLanguage(tee)
         }];
