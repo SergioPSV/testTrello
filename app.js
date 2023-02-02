@@ -35,7 +35,7 @@ fetch(GET_TAGS_URL)
     window.TrelloPowerUp.initialize({
       'card-buttons': function (t, opts) {
         return [{
-          text: 'Snooze',
+          text: 'Change language',
           callback: (tee) => changeLanguage(tee)
         }];
       },
@@ -82,11 +82,6 @@ fetch(GET_TAGS_URL)
             text: "⚙️ Change tag",
             color: "grey",
             callback: (tee) => actionsWithTags(tee),
-          },
-          {
-            title: "",
-            text: "Language",
-            callback: (tee) => changeLanguage(tee),
           },
         ])),
     });
