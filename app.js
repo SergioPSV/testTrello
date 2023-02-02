@@ -56,6 +56,7 @@ fetch(GET_TAGS_URL)
                     let memberLanguage = selectedLanguages.find( member => member.id == idPerson.id)
                     console.log(memberLanguage)
                     console.log((!errorCode && memberLanguage && memberLanguage.lang != '') ? 'Yes' : !errorCode ? 'No' : 'No2')
+                    console.log({memberLanguage.lang});
                     
                     tagInCard = (!errorCode && memberLanguage && memberLanguage.lang != '') ? tags.find(t => t.id === tagId)[memberLanguage.lang] : !errorCode ? tags.find(t => t.id === tagId).name : "Need tag";
                   } else {
