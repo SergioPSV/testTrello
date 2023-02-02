@@ -37,7 +37,10 @@ fetch(GET_TAGS_URL)
         return [{
           text: 'Change language',
           callback: (tee) => changeLanguage(tee)
-        }];
+        }, {
+            text: "Change tag",
+            callback: (tee) => actionsWithTags(tee),
+          }];
       },
       'card-badges': function (t, opts) {
         return t
