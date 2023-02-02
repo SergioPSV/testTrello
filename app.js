@@ -33,7 +33,14 @@ fetch(GET_TAGS_URL)
     selectedLanguages = await fetch(GET_SELECTED_LANGUAGES_URL).then((response) => response.json());
 
     window.TrelloPowerUp.initialize({
-      "card-badges": function (t, opts) {
+      'card-buttons': function (t, opts) {
+        return [{
+          icon: GRAY_ICON,
+          text: 'Snooze',
+          callback: (tee) => changeLanguage(tee)
+        }];
+      },
+      'card-badges': function (t, opts) {
         return t
           .card("id")
           .get("id")
