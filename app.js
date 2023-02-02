@@ -125,7 +125,7 @@ const getTagForCard = (cardId, t) => new Promise(async resolve => {
   })
 });
 
-const saveTagForCard = async (tagName, cardId, t) => {
+const saveTagForCard = async (tagName, cardId, t, memberLang) => {
   t.alert({message: 'Attach tag...', duration: 10});
 
   const {id:tagId} = tags.find(t => t.name === tagName);
@@ -133,7 +133,8 @@ const saveTagForCard = async (tagName, cardId, t) => {
     currentTag = DEFAULT_TAG;
     await fetch(DELETE_TAG_URL + `?cardId=${cardId}`);
   } else {
-    currentTag = tagName;
+    let tagsLanguages = tags.find(t => t.name === tagName);
+    currentTag = tagsLanguages[memberLang] ? tagsLanguages[memberLang] : tagName;
     await fetch(SAVE_TAG_URL + `?cardId=${cardId}&tagId=${tagId}`);
   }
 
@@ -208,7 +209,7 @@ const badgeClickCallback = (tee, cardId, personId) => {
         tag.name.toLowerCase().includes(options.search.toLowerCase()) && !tag.hidden || tag.id === 1 || (tag[memberLanguage.lang].toLowerCase().includes(options.search.toLowerCase()) && !tag.hidden) ).map(tag => ({
           alwaysVisible: tag.id === 1,
           text: tag[memberLanguage.lang] ? tag[memberLanguage.lang] : tag.name,
-          callback: t => saveTagForCard(tag[memberLanguage.lang] ? tag[memberLanguage.lang] : tag.name, cardId, t),
+          callback: t => saveTagForCard(tag.name, cardId, t, memberLanguage.lang),
         })
       );
     } else {
@@ -216,7 +217,7 @@ const badgeClickCallback = (tee, cardId, personId) => {
         tag.name.toLowerCase().includes(options.search.toLowerCase()) && !tag.hidden || tag.id === 1).map(tag => ({
           alwaysVisible: tag.id === 1,
           text: tag.name,
-          callback: t => saveTagForCard(tag.name, cardId, t),
+          callback: t => saveTagForCard(tag.name, cardId, t, 'name'),
         })
       ); 
     }
