@@ -24,7 +24,7 @@ window.TrelloPowerUp.initialize({
     },{
       icon: ICON_LANGUAGE,
       text: 'Languages',
-      callback: t => t.alert({message: 'Powering-Up, give us a second...'});
+      callback: t => { t.alert({message: 'Powering-Up, give us a second...'}) }
     }];
   }
 });
