@@ -5,7 +5,7 @@ var btnCallback = function (t, opts) {
     title: 'Change Snooze Time',
     url: './feedback.html',
     args: { myArgs: 'You can access these with t.arg()' },
-    height: 278 // initial height, can be changed later
+    height: 600 // initial height, can be changed later
   });
 };
 
