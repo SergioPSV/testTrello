@@ -1,5 +1,7 @@
 const GRAY_ICON = 'https://cdn.hyperdev.com/us-east-1%3A3d31b21c-01a0-4da2-8827-4bc6e88b7618%2Ficon-gray.svg';
 const ICON_FEDDBACK = './feedback-svgrepo-com.svg';
+const ICON_CONFIGURATION = './feedback-svgrepo-com.svg';
+const ICON_LANGUAGE = './feedback-svgrepo-com.svg';
 
 const btnCallbackFeedback = (t, opts) => {
   return t.popup({
@@ -15,6 +17,14 @@ window.TrelloPowerUp.initialize({
     return [{
       icon: ICON_FEDDBACK,
       text: 'Feedback',
+      callback: btnCallbackFeedback
+    },{
+      icon: ICON_CONFIGURATION,
+      text: 'Change tag',
+      callback: btnCallbackFeedback
+    },{
+      icon: ICON_LANGUAGE,
+      text: 'Languages',
       callback: btnCallbackFeedback
     }];
   }
