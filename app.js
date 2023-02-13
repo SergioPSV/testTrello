@@ -4,7 +4,8 @@ const btnCallbackFeedback = (t, opts) => {
   return t.popup({
     title: 'Leave feedback',
     url: './feedback.html',
-    height: 500
+    height: 500,
+    width: 500
   });
 };
 
