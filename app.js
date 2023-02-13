@@ -8,7 +8,6 @@ const btnCallbackFeedback = (t, opts) => {
     title: 'Leave feedback',
     url: './feedback.html',
     height: 500,
-    width: 500
   });
 };
 
@@ -25,7 +24,7 @@ window.TrelloPowerUp.initialize({
     },{
       icon: ICON_LANGUAGE,
       text: 'Languages',
-      callback: t.alert({message: 'Powering-Up, give us a second...'});
+      callback: t => t.alert({message: 'Powering-Up, give us a second...'});
     }];
   }
 });
