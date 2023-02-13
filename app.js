@@ -3,7 +3,7 @@ var GRAY_ICON = 'https://cdn.hyperdev.com/us-east-1%3A3d31b21c-01a0-4da2-8827-4b
 var btnCallback = function (t, opts) {
   return t.popup({
     title: 'Change Snooze Time',
-    url: './snooze-time.html',
+    url: './feedback.html',
     args: { myArgs: 'You can access these with t.arg()' },
     height: 278 // initial height, can be changed later
   });
