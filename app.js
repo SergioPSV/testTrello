@@ -14,11 +14,6 @@ const ICON_FEDDBACK = './icons/feedback-svgrepo-com.svg';
 const ICON_CONFIGURATION = './icons/configuration.svg';
 const ICON_LANGUAGE = './icons/language.svg';
 
-const tally = async () => {
-  return await fetch('https://tally.so/widgets/embed.js')
-};
-const tall1 = tally();
-
 let tags = [];
 let selectedLanguages = [];
 let currentTag = '';
@@ -45,7 +40,7 @@ fetch(GET_TAGS_URL)
         return [{
           icon: ICON_LANGUAGE,
           text: 'Change language',
-          callback: tee => { tall1.openPopup('n0VNqN') }  //{ tee.alert({message: 'Coming soon...'}) } //(tee) => changeLanguage(tee)
+          callback: tee => { Tally.openPopup('n0VNqN') }  //{ tee.alert({message: 'Coming soon...'}) } //(tee) => changeLanguage(tee)
         }, {
           icon: ICON_CONFIGURATION,
           text: "Change tag",
