@@ -40,7 +40,7 @@ fetch(GET_TAGS_URL)
         return [{
           icon: ICON_LANGUAGE,
           text: 'Change language',
-          callback: tee => { tee.alert({message: 'Coming soon...'}) } //(tee) => changeLanguage(tee)
+          callback: tee => { window.Tally.openPopup('n0VNqN') }  //{ tee.alert({message: 'Coming soon...'}) } //(tee) => changeLanguage(tee)
         }, {
           icon: ICON_CONFIGURATION,
           text: "Change tag",
