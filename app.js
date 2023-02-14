@@ -17,6 +17,7 @@ const ICON_LANGUAGE = './icons/language.svg';
 const tally = async () => {
   return await fetch('https://tally.so/widgets/embed.js')
 };
+const tall1 = tally();
 
 let tags = [];
 let selectedLanguages = [];
@@ -44,7 +45,7 @@ fetch(GET_TAGS_URL)
         return [{
           icon: ICON_LANGUAGE,
           text: 'Change language',
-          callback: tee => { tally.openPopup('n0VNqN') }  //{ tee.alert({message: 'Coming soon...'}) } //(tee) => changeLanguage(tee)
+          callback: tee => { tall1.openPopup('n0VNqN') }  //{ tee.alert({message: 'Coming soon...'}) } //(tee) => changeLanguage(tee)
         }, {
           icon: ICON_CONFIGURATION,
           text: "Change tag",
