@@ -58,13 +58,7 @@ fetch(GET_TAGS_URL)
         return [{
           icon: ICON_LANGUAGE,
           text: 'Change language',
-          callback: tee => tee.render(function(){ 
-                const script = document.createElement('script');
-                script.src = 'https://tally.so/widgets/embed.js';
-                script.id = 'tally';
-                script.async = true;
-                document.body.appendChild(script);
-          })   //{ tee.alert({message: 'Coming soon...'}) } //(tee) => changeLanguage(tee)
+          callback: tee => { window.alert('Hello') }  //{ tee.alert({message: 'Coming soon...'}) } //(tee) => changeLanguage(tee)
         }, {
           icon: ICON_CONFIGURATION,
           text: "Change tag",
