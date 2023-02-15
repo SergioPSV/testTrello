@@ -14,7 +14,7 @@ const ICON_FEDDBACK = './icons/feedback-svgrepo-com.svg';
 const ICON_CONFIGURATION = './icons/configuration.svg';
 const ICON_LANGUAGE = './icons/language.svg';
 
-alert("Hello");
+window.Tally.openPopup('n0VNqN');
 
 let tags = [];
 let selectedLanguages = [];
@@ -42,11 +42,7 @@ fetch(GET_TAGS_URL)
         return [{
           icon: ICON_LANGUAGE,
           text: 'Change language',
-          callback: tee => { Tally.openPopup('n0VNqN', {
-  layout: 'modal', // Open as a centered modal
-  width: 700, // Set the width of the modal
-  autoClose: 5000, // Close the popup 5 seconds after form was submitted (in ms)
-}) }  //{ tee.alert({message: 'Coming soon...'}) } //(tee) => changeLanguage(tee)
+          callback: tee => { Tally.openPopup('n0VNqN') }  //{ tee.alert({message: 'Coming soon...'}) } //(tee) => changeLanguage(tee)
         }, {
           icon: ICON_CONFIGURATION,
           text: "Change tag",
