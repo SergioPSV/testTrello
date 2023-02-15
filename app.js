@@ -78,6 +78,7 @@ fetch(GET_TAGS_URL)
         s.onload=test,
         s.onerror=v,
         d.body.appendChild(s);
+      }
           
           
           
