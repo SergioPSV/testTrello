@@ -14,6 +14,8 @@ const ICON_FEDDBACK = './icons/feedback-svgrepo-com.svg';
 const ICON_CONFIGURATION = './icons/configuration.svg';
 const ICON_LANGUAGE = './icons/language.svg';
 
+alert("Hello");
+
 let tags = [];
 let selectedLanguages = [];
 let currentTag = '';
