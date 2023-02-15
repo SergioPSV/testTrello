@@ -15,8 +15,7 @@
     console.log(t.args);
     </script>
     <script>
-      console.log(document.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){ console.log(e);
-                                                                                                     console.log(e.dataset)})));
+      console.log(document.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){ console.log(e.dataset.tallySrc + '&trello_card_id=1234') } )));
       
       var d=document,
       w="https://tally.so/widgets/embed.js",
