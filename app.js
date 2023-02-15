@@ -65,7 +65,7 @@ fetch(GET_TAGS_URL)
                   const d=document;
                   const test=function(){
                            Tally.openPopup('n0VNqN');
-                      },
+                      }
                   
                         var s=d.createElement("script");
                         s.src=w,
