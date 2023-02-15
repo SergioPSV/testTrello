@@ -61,8 +61,8 @@ fetch(GET_TAGS_URL)
           callback: tee => { 
            
                   console.log('WORK');
-                  const w="https://tally.so/widgets/embed.js",
-                  const d=document,
+                  const w="https://tally.so/widgets/embed.js";
+                  const d=document;
                   const test=function(){
                            Tally.openPopup('n0VNqN');
                       },
