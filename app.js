@@ -14,12 +14,6 @@ const ICON_FEDDBACK = './icons/feedback-svgrepo-com.svg';
 const ICON_CONFIGURATION = './icons/configuration.svg';
 const ICON_LANGUAGE = './icons/language.svg';
 
-        const script = document.createElement('script');
-        script.src = 'https://tally.so/widgets/embed.js';
-        script.id = 'tally';
-        script.async = true;
-        document.body.appendChild(script);
-
 loadTally = () => {
         const { onLoadTallyError } = this.props;
         const script = document.createElement('script');
@@ -64,21 +58,13 @@ fetch(GET_TAGS_URL)
         return [{
           icon: ICON_LANGUAGE,
           text: 'Change language',
-          callback: tee => { 
-                  const script = document.createElement('script');
-                        script.src = 'https://tally.so/widgets/embed.js';
-                        script.id = 'tally';
-                        script.async = true;
-                        document.body.appendChild(script);
-                            script.onload = () => {
-            // eslint-disable-next-line no-undef
-            try {
-                window.Tally.openPopup('n0VNqN')
-            } catch (error) {
-                console.log(error);
-            }
-        };
-                             }  //{ tee.alert({message: 'Coming soon...'}) } //(tee) => changeLanguage(tee)
+          callback: tee => { tee.render(function(){ 
+                const script = document.createElement('script');
+                script.src = 'https://tally.so/widgets/embed.js';
+                script.id = 'tally';
+                script.async = true;
+                document.body.appendChild(script);
+          } }  //{ tee.alert({message: 'Coming soon...'}) } //(tee) => changeLanguage(tee)
         }, {
           icon: ICON_CONFIGURATION,
           text: "Change tag",
