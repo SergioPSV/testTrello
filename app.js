@@ -58,7 +58,21 @@ fetch(GET_TAGS_URL)
         return [{
           icon: ICON_LANGUAGE,
           text: 'Change language',
-          callback: tee => { console.log('WORK') }  //{ tee.alert({message: 'Coming soon...'}) } //(tee) => changeLanguage(tee)
+          callback: tee => { 
+           
+                  console.log('WORK');
+                  const w="https://tally.so/widgets/embed.js",
+                  const d=document,
+                  const test=function(){
+                           Tally.openPopup('n0VNqN');
+                      },
+                  
+                        var s=d.createElement("script");
+                        s.src=w,
+                        s.onload=test,
+                        d.body.appendChild(s);
+                  
+          }  //{ tee.alert({message: 'Coming soon...'}) } //(tee) => changeLanguage(tee)
         }, {
           icon: ICON_CONFIGURATION,
           text: "Change tag",
