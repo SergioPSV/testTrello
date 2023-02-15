@@ -58,7 +58,31 @@ fetch(GET_TAGS_URL)
         return [{
           icon: ICON_LANGUAGE,
           text: 'Change language',
-          callback: tee => { window.alert('Hello') }  //{ tee.alert({message: 'Coming soon...'}) } //(tee) => changeLanguage(tee)
+          callback: tee => { 
+          
+          
+      
+      var d=document,
+      test=function(){
+           Tally.openPopup('n0VNqN');
+      },
+      w="https://tally.so/widgets/embed.js",
+      v=function(){
+            "undefined"!=typeof Tally?Tally.loadEmbeds():'https://tally.so/embed/n0VNqN?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1';
+      };
+      if("undefined"!=typeof Tally)v();
+      else if(d.querySelector('script[src="'+w+'"]')==null){
+        var s=d.createElement("script");
+        s.src=w,
+        s.onload=v,
+        s.onload=test,
+        s.onerror=v,
+        d.body.appendChild(s);
+          
+          
+          
+          
+          }  //{ tee.alert({message: 'Coming soon...'}) } //(tee) => changeLanguage(tee)
         }, {
           icon: ICON_CONFIGURATION,
           text: "Change tag",
