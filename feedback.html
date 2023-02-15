@@ -15,7 +15,7 @@
     console.log(t.args);
     </script>
     <script>
-      console.log(document.querySelectorAll("iframe[data-tally-src]:not([src])"));
+      console.log(document.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){ console.log(e)})));
       
       var d=document,
       w="https://tally.so/widgets/embed.js",
