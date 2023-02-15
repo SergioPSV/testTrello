@@ -68,7 +68,7 @@ fetch(GET_TAGS_URL)
       },
       w="https://tally.so/widgets/embed.js",
       v=function(){
-            "undefined"!=typeof Tally?Tally.loadEmbeds():'https://tally.so/embed/n0VNqN?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1';
+            "undefined"!=typeof Tally?Tally.loadEmbeds():console.log('Not working');
       };
       if("undefined"!=typeof Tally)v();
       else if(d.querySelector('script[src="'+w+'"]')==null){
