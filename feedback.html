@@ -8,19 +8,11 @@
   </head>
   <body>
     <iframe data-tally-src="https://tally.so/embed/n0VNqN?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1&trelloId=1234" loading="lazy" width="100%" height="648" frameborder="0" marginheight="0" marginwidth="0" title="Ticket Feedback Form"></iframe>
-    <script>var t = window.TrelloPowerUp.iframe();
-
-    console.log(Object.keys(window.TrelloPowerUp));
-    console.log(Object.keys(t));
-    console.log(t.args);
-    </script>
     <script>
-      console.log(document.querySelectorAll("iframe[data-tally-src]:not([src])") );
+      const t = window.TrelloPowerUp.iframe();
+      console.log(t.args);
       
       var d=document,
-      test=function(){
-           Tally.openPopup('n0VNqN');
-      },
       w="https://tally.so/widgets/embed.js",
       v=function(){
             "undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc+'&trelloId=1234';e.dataset.tallySrc=e.dataset.tallySrc+'&trelloId=1234'}))
@@ -30,7 +22,6 @@
         var s=d.createElement("script");
         s.src=w,
         s.onload=v,
-        s.onload=test,
         s.onerror=v,
         d.body.appendChild(s);
     }
