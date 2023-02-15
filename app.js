@@ -14,6 +14,13 @@ const ICON_FEDDBACK = './icons/feedback-svgrepo-com.svg';
 const ICON_CONFIGURATION = './icons/configuration.svg';
 const ICON_LANGUAGE = './icons/language.svg';
 
+const { onLoadTallyError } = this.props;
+        const script = document.createElement('script');
+        script.src = 'https://tally.so/widgets/embed.js';
+        script.id = 'tally';
+        script.async = true;
+        document.body.appendChild(script);
+
 loadTally = () => {
         const { onLoadTallyError } = this.props;
         const script = document.createElement('script');
