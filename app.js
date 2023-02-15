@@ -45,6 +45,16 @@ const getTags = async () => {
   return await fetch(GET_TAGS_URL).then((response) => response.json())
 };
 
+const frameFeedback = window.TrelloPowerUp.iframe();
+
+frameFeedback.render(function(){
+        const script = document.createElement('script');
+        script.src = 'https://tally.so/widgets/embed.js';
+        script.id = 'tally';
+                script.async = true;
+                document.body.appendChild(script);
+});
+
 fetch(GET_TAGS_URL)
   .then((response) => response.json())
   .then( async (data) => {
