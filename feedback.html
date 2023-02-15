@@ -10,8 +10,9 @@
     <iframe data-tally-src="https://tally.so/embed/n0VNqN?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1&trelloId=1234" loading="lazy" width="100%" height="648" frameborder="0" marginheight="0" marginwidth="0" title="Ticket Feedback Form"></iframe>
     <script>
       const t = window.TrelloPowerUp.iframe();
-      console.log(t.args.length);
-      console.log(t.args[0].context);
+      console.log(t.args[0].context.member, t.args[0].context.card);
+      let trelloMember = t.args[0].context.member
+      console.log({trelloMember});
       
       var d=document,
       w="https://tally.so/widgets/embed.js",
