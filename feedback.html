@@ -35,7 +35,7 @@
 
 
         document.querySelectorAll("iframe[data-tally-src]").forEach( e => { 
-          e.dataset.tallySrc = e.dataset.tallySrc + `&feedbackCreater=${feedbackCreater}&trelloId=${trelloIdCard}&managerName=${managerName}&trelloUrl=${cardDescription.shortUrl}`
+          e.dataset.tallySrc = e.dataset.tallySrc + `&feedbackCreater=${feedbackCreater}&trelloId=${trelloIdCard}`
         });
 
         console.log(document.querySelectorAll("iframe[data-tally-src]"));
