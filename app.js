@@ -384,7 +384,7 @@ const btnCallbackFeedback = (t, opts) => {
     url: t.signUrl('./feedback.html', {
             args: {trello_url: 1234, trello_card_id: 456789}
           }),
-    height: 700,
+    height: 720,
   });
 };
 
