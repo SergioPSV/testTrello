@@ -240,7 +240,8 @@ const badgeClickCallback = (tee, cardId, personId) => {
       count: 10,
       placeholder: 'Search...',
       empty: 'This tag needs to be created'
-    }
+    },
+    height: 500,
   });
 };
 
