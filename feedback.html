@@ -9,30 +9,51 @@
   <body>
     <iframe data-tally-src="https://tally.so/embed/n0VNqN?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="648" frameborder="0" marginheight="0" marginwidth="0" title="Ticket Feedback Form"></iframe>
     <script>
-      const t = window.TrelloPowerUp.iframe();
-      let feedbackCreater = t.args[0].context.member;
-      let trelloId = t.args[0].context.member;
-      
-      document.querySelectorAll("iframe[data-tally-src]").forEach( e => { 
-        e.dataset.tallySrc = e.dataset.tallySrc + `&feedbackCreater=${feedbackCreater}&trelloId=${trelloId}&managerName=Grisha`
-      });
-      
-      console.log(document.querySelectorAll("iframe[data-tally-src]"));
-      
-      var d=document,
-      w="https://tally.so/widgets/embed.js",
-      v=function(){
-            "undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){
-              e.src=e.dataset.tallySrc}))
-      };
-      if("undefined"!=typeof Tally)v();
-      else if(d.querySelector('script[src="'+w+'"]')==null){
-        var s=d.createElement("script");
-        s.src=w,
-        s.onload=v,
-        s.onerror=v,
-        d.body.appendChild(s);
+      async function showFeedbackModal() {
+        const t = window.TrelloPowerUp.iframe();
+        let feedbackCreater = t.args[0].context.member;
+        let trelloIdCard = t.args[0].context.card;
+        
+        let trelloUrlMember = `https://api.trello.com/1/members/${feedbackCreater}?key=4b2c8f0f70d17e170d035f9d2a306b63&token=1e4780c697e413c860d2e6ac29f8548da7a3d333bd4d233d1ea3574d0d149099`;
+        let trelloUrlCard = `https://api.trello.com/1/cards/${trelloIdCard}?key=4b2c8f0f70d17e170d035f9d2a306b63&token=1e4780c697e413c860d2e6ac29f8548da7a3d333bd4d233d1ea3574d0d149099`;
+
+        let memberFullName = await fetch(trelloUrlMember)
+        .then(res => res.json())
+        .then(data => somePerson = data.fullName);
+
+        let cardDescription = await fetch(trelloUrlCard)
+        .then(res => res.json())
+        .then(data => someCard = data);
+
+        let cardItems = cardDescription.desc.split('**');
+        let managerName = cardItems.findIndex( item => item.includes('Submitted by:')) ? cardItems[cardItems.findIndex( item => item.includes('Submitted by:')) + 1].trim().replace('/n', '') : '';
+
+
+        console.log(managerName, memberFullName, cardDescription.shortUrl);
+
+
+        document.querySelectorAll("iframe[data-tally-src]").forEach( e => { 
+          e.dataset.tallySrc = e.dataset.tallySrc + `&feedbackCreater=${feedbackCreater}&trelloId=${trelloIdCard}&managerName=${managerName}&trelloUrl=${cardDescription.shortUrl}`
+        });
+
+        console.log(document.querySelectorAll("iframe[data-tally-src]"));
+
+        var d=document,
+        w="https://tally.so/widgets/embed.js",
+        v=function(){
+              "undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){
+                e.src=e.dataset.tallySrc}))
+        };
+        if("undefined"!=typeof Tally)v();
+        else if(d.querySelector('script[src="'+w+'"]')==null){
+          var s=d.createElement("script");
+          s.src=w,
+          s.onload=v,
+          s.onerror=v,
+          d.body.appendChild(s);
+      }
     }
+      
     </script>
   </body>
 </html>
