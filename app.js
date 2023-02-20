@@ -14,24 +14,6 @@ const ICON_FEDDBACK = './icons/feedback-svgrepo-com.svg';
 const ICON_CONFIGURATION = './icons/configuration.svg';
 const ICON_LANGUAGE = './icons/language.svg';
 
-loadTally = () => {
-        const { onLoadTallyError } = this.props;
-        const script = document.createElement('script');
-        script.src = 'https://tally.so/widgets/embed.js';
-        script.id = 'tally';
-        script.async = true;
-        document.body.appendChild(script);
-        script.onload = () => {
-            // eslint-disable-next-line no-undef
-            try {
-                Tally.loadEmbeds();
-            } catch (error) {
-                onLoadTallyError(error);
-            }
-        };
-        script.onerror = onLoadTallyError;
-    }
-
 let tags = [];
 let selectedLanguages = [];
 let currentTag = '';
@@ -106,12 +88,6 @@ fetch(GET_TAGS_URL)
         .then((id) => ([
           {
             dynamic: () => getTagForCard(id, t),
-          },
-          {
-            title: "⁠",
-            text: "⚙️ Change tag",
-            color: "grey",
-            callback: (tee) => actionsWithTags(tee),
           },
         ])),
     });
