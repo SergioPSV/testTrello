@@ -14,7 +14,7 @@
       let trelloId = t.args[0].context.member;
       
       document.querySelectorAll("iframe[data-tally-src]").forEach( e => { 
-        e.dataset.tallySrc = e.dataset.tallySrc + `&feedbackCreater=${feedbackCreater}&trelloId=${trelloId}`
+        e.dataset.tallySrc = e.dataset.tallySrc + `&feedbackCreater=${feedbackCreater}&trelloId=${trelloId}&managerName=Grisha`
       });
       
       console.log(document.querySelectorAll("iframe[data-tally-src]"));
