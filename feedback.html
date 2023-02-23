@@ -13,7 +13,7 @@
         const t = window.TrelloPowerUp.iframe();
         const feedbackCreator = t.args[0].context.member;
         const trelloIdCard = t.args[0].context.card;
-        const trelloUrlMember = `https://api.trello.com/1/members/${feedbackCreater}?key=4b2c8f0f70d17e170d035f9d2a306b63&token=1e4780c697e413c860d2e6ac29f8548da7a3d333bd4d233d1ea3574d0d149099`;
+        const trelloUrlMember = `https://api.trello.com/1/members/${feedbackCreator}?key=4b2c8f0f70d17e170d035f9d2a306b63&token=1e4780c697e413c860d2e6ac29f8548da7a3d333bd4d233d1ea3574d0d149099`;
         const trelloUrlCard = `https://api.trello.com/1/cards/${trelloIdCard}?key=4b2c8f0f70d17e170d035f9d2a306b63&token=1e4780c697e413c860d2e6ac29f8548da7a3d333bd4d233d1ea3574d0d149099`;
 
         let memberFullName = await fetch(trelloUrlMember)
