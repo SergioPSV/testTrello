@@ -48,7 +48,7 @@ fetch(GET_TAGS_URL)
         }, {
           icon: ICON_FEDDBACK,
           text: 'Feedback',
-          callback: btnCallbackFeedback
+          callback: { console.log('WORK') }  //btnCallbackFeedback
         }];
       },
       'card-badges': function (t, opts) {
@@ -378,11 +378,11 @@ const changeLanguageCallback = async (tee, language) => {
   
 };
 
-const btnCallbackFeedback = (t, opts) => {
-  return t.popup({
-    title: 'Leave feedback',
-    url: './feedback.html',
-    height: 720,
-  });
-};
+// const btnCallbackFeedback = (t, opts) => {
+//   return t.popup({
+//     title: 'Leave feedback',
+//     url: './feedback.html',
+//     height: 720,
+//   });
+// };
 
