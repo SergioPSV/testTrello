@@ -381,9 +381,7 @@ const changeLanguageCallback = async (tee, language) => {
 const btnCallbackFeedback = (t, opts) => {
   return t.popup({
     title: 'Leave feedback',
-    url: t.signUrl('./feedback.html', {
-            args: {trello_url: 1234, trello_card_id: 456789}
-          }),
+    url: './feedback.html',
     height: 720,
   });
 };
