@@ -48,7 +48,7 @@ fetch(GET_TAGS_URL)
         }, {
           icon: ICON_FEDDBACK,
           text: 'Feedback',
-          callback: { console.log('WORK') }  //btnCallbackFeedback
+          callback: tee => { console.log('WORK') }  //btnCallbackFeedback
         }];
       },
       'card-badges': function (t, opts) {
