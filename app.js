@@ -40,7 +40,7 @@ fetch(GET_TAGS_URL)
         return [{
           icon: ICON_LANGUAGE,
           text: 'Change language',
-          callback: tee => { console.log('WORK') }  //{ tee.alert({message: 'Coming soon...'}) } //(tee) => changeLanguage(tee)
+          callback: (tee) => changeLanguage(tee)
         }, {
           icon: ICON_CONFIGURATION,
           text: "Change tag",
@@ -48,7 +48,7 @@ fetch(GET_TAGS_URL)
         }, {
           icon: ICON_FEDDBACK,
           text: 'Feedback',
-          callback: tee => { console.log('WORK') }  //btnCallbackFeedback
+          callback: btnCallbackFeedback
         }];
       },
       'card-badges': function (t, opts) {
@@ -378,11 +378,11 @@ const changeLanguageCallback = async (tee, language) => {
   
 };
 
-// const btnCallbackFeedback = (t, opts) => {
-//   return t.popup({
-//     title: 'Leave feedback',
-//     url: './feedback.html',
-//     height: 720,
-//   });
-// };
+const btnCallbackFeedback = (t, opts) => {
+  return t.popup({
+    title: 'Leave feedback',
+    url: './feedback.html',
+    height: 720,
+  });
+};
 
